@@ -1,9 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".OptionsClient">
+    android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/btnGeneratePoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gerar Pontos"
+        android:tag="gerarPontos"
+        android:onClick="choiceActivity"
+        tools:layout_editor_absoluteX="145dp"
+        tools:layout_editor_absoluteY="331dp" />
+
+    <Button
+        android:id="@+id/btnRegisterPoints"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/btnGeneratePoints"
+        android:layout_height="wrap_content"
+        android:text="Registrar Pontos"
+        android:tag="registerPoints"
+        android:onClick="choiceActivity"
+        tools:layout_editor_absoluteX="152dp"
+        tools:layout_editor_absoluteY="212dp" />
+
+</RelativeLayout>
