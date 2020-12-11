@@ -2,8 +2,10 @@ package com.example.eng221.systemcontrolcardfidelity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 
 public class GeneratePointsCompany extends AppCompatActivity {
 
@@ -12,6 +14,8 @@ public class GeneratePointsCompany extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_points_company);
     }
+
+
 
     public void codes(View view) {
     }
