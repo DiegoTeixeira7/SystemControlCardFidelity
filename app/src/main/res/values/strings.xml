@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SystemControlCardFidelity</string>
+    <string name="texto_combo">Spinner</string>
 </resources>

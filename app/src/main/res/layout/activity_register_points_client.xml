@@ -5,18 +5,72 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/pointsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
+        android:text="Pontos a serem validados:" />
 
+    <Spinner
+        android:id="@+id/spinnerCategoria"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_below="@+id/pointsText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:prompt="@string/texto_combo" />
 
+    <TextView
+        android:id="@+id/codeAlphaText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinnerCategoria"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
+        android:text="Código alfanumérico:" />
 
+    <TextView
+        android:id="@+id/codeAlpha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/codeAlphaText"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
+        android:text="1312412412412414141212412414" />
 
     <Button
-        android:id="@+id/btnRegisterPoints"
+        android:id="@+id/btnValidadeQRCode"
         android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
-        android:layout_below="@+id/btnclient"
+        android:layout_below="@+id/codeAlpha"
         android:layout_height="wrap_content"
-        android:text="Empresa"
+        android:text="Validar QR Code"
         android:onClick="generatePoints"
+        android:tag="alfanumerico"
+        tools:layout_editor_absoluteX="152dp"
+        tools:layout_editor_absoluteY="212dp" />
+
+    <ImageView
+        android:id="@+id/imageQRCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnValidadeQRCode"
+        app:srcCompat="@drawable/ic_launcher_foreground" />
+
+    <Button
+        android:id="@+id/btnValidadeQRCoe"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/imageQRCode"
+        android:layout_height="wrap_content"
+        android:text="Validar QR Code"
+        android:onClick="generatePoints"
+        android:tag="qrcode"
         tools:layout_editor_absoluteX="152dp"
         tools:layout_editor_absoluteY="212dp" />
 
