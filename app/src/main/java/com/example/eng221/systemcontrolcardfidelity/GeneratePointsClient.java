@@ -2,6 +2,7 @@ package com.example.eng221.systemcontrolcardfidelity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -21,12 +22,13 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
+import static java.lang.Double.parseDouble;
+
 public class GeneratePointsClient extends AppCompatActivity {
     public static final int VOLTAR = 1;
     public static final int REGISTERPOINTS = 2;
 
     ArrayList<String> empresas = new ArrayList<>();
-    //Map map = new HashMap();
     Map<String, Integer> map = new HashMap<String, Integer>();
 
     @Override
@@ -85,10 +87,35 @@ public class GeneratePointsClient extends AppCompatActivity {
     public void generatePoints(View view) {
         EditText autoC = findViewById(R.id.autoCompleteTextView);
         String empr = autoC.getText().toString();
-        Integer id = map.get(empr);
+        EditText priceEdt = findViewById(R.id.price);
+        String price = priceEdt.getText().toString();
 
+        if(price.equals("") || empr.equals("")){
+            Toast.makeText(this, "Preencha todos os campos!" ,Toast.LENGTH_LONG).show();
+        } else {
+            Integer idEmpresa = map.get(empr);
+            if (idEmpresa == null) {
+                Toast.makeText(this, "Empresa digitada não cadastrada!" ,Toast.LENGTH_LONG).show();
+            } else {
+                double Price = parseDouble(price);
 
+                if (Price <= 0) {
+                    Toast.makeText(this, "Digite valor positivo maior que 0", Toast.LENGTH_LONG).show();
+                } else {
+                    ContentValues valores = new ContentValues();
+                    assert idEmpresa != null;
+                    valores.put("idEmpresa", idEmpresa.toString());
+                    valores.put("reais", Price);
+                    //valores.put("idCliente", idCliente.toString());
 
-        Toast.makeText(this, id.toString() ,Toast.LENGTH_LONG).show();
+                    BancoDadosSingleton.getInstance().inserir("solicitacoesPontos", valores);
+
+                    priceEdt.setText(null);
+                    autoC.setText("");
+
+                    Toast.makeText(this, "Solicitação de pontos enviada para empresa " + empr + ". Valor informado R$" + Price, Toast.LENGTH_LONG).show();
+                }
+            }
+        }
     }
 }
