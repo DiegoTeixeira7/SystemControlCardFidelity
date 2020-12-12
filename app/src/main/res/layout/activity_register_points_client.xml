@@ -3,75 +3,147 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/pointsText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginStart="30dp"
-        android:text="Pontos a serem validados:" />
-
-    <Spinner
-        android:id="@+id/spinnerPoints"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_below="@+id/pointsText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:prompt="@string/texto_combo" />
-
-    <TextView
-        android:id="@+id/codeAlphaText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/spinnerPoints"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginStart="30dp"
-        android:text="Código alfanumérico:" />
-
-    <TextView
-        android:id="@+id/codeAlpha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/codeAlphaText"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginStart="30dp"
-        android:text="1312412412412414141212412414" />
-
-    <Button
-        android:id="@+id/btnValidadeQRCode"
-        android:layout_marginTop="30dp"
-        android:layout_width="wrap_content"
-        android:layout_below="@+id/codeAlpha"
-        android:layout_height="wrap_content"
-        android:text="Validar QR Code"
-        android:onClick="generatePoints"
-        android:tag="alfanumerico"
-        tools:layout_editor_absoluteX="152dp"
-        tools:layout_editor_absoluteY="212dp" />
+    android:layout_height="match_parent"
+    android:background="@color/colorBlueTheme">
 
     <ImageView
-        android:id="@+id/imageQRCode"
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnValidadeQRCode"
-        app:srcCompat="@drawable/ic_launcher_foreground" />
+        app:srcCompat="@drawable/android"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
 
-    <Button
-        android:id="@+id/btnValidadeQRCoe"
-        android:layout_marginTop="30dp"
-        android:layout_width="wrap_content"
-        android:layout_below="@+id/imageQRCode"
-        android:layout_height="wrap_content"
-        android:text="Validar QR Code"
-        android:onClick="generatePoints"
-        android:tag="qrcode"
-        tools:layout_editor_absoluteX="152dp"
-        tools:layout_editor_absoluteY="212dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            android:background="@drawable/blue_toolbar"
+            android:elevation="20dp"
+            android:outlineAmbientShadowColor="#000">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:ignore="UselessParent">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:theme="@style/Title"
+                    android:paddingLeft="10dp"
+                    android:elevation="24dp"
+                    android:shadowColor="#000"
+                    android:text="Cadastrar Pontos"/>
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="vertical"
+            android:background="@drawable/yellow_toolbar"
+            android:elevation="10dp"
+            android:outlineAmbientShadowColor="#000">
+
+            <TextView
+                android:id="@+id/pointsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/Description"
+                android:textSize="12dp"
+                android:paddingLeft="24dp"
+                android:paddingTop="5dp"
+                android:text="Pontos a serem validados:" />
+
+            <Spinner
+                android:id="@+id/spinnerPoints"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginHorizontal="24dp"
+                android:background="@drawable/text_box_background"
+                android:elevation="10dp"
+                android:theme="@style/EditText"
+                android:prompt="@string/texto_combo" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/codeAlphaText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:theme="@style/subTitle"
+                    android:layout_marginTop="10sp"
+                    android:text="Código alfanumérico" />
+
+                <TextView
+                    android:id="@+id/codeAlpha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="50dp"
+                    android:textAlignment="center"
+                    android:textColor="#fff"
+                    android:shadowRadius="4"
+                    android:shadowColor="#000"
+                    android:text="(01)05391234567892 (15)051231 (10)APO1536Z (00)353912345678910118" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnValidadeQRCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:onClick="generatePoints"
+                android:tag="alfanumerico"
+                android:text="Validar Number Code"
+                android:shadowColor="#fff"
+                android:elevation="10dp"
+                android:background="@drawable/button_white"
+                android:theme="@style/Button"
+                android:layout_gravity="center"/>
+
+            <ImageView
+                android:id="@+id/imageQRCode"
+                android:layout_marginTop="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/qrcode" />
+
+            <Button
+                android:id="@+id/btnValidadeQRCoe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="generatePoints"
+                android:tag="qrcode"
+                android:text="Validar QR Code"
+                android:shadowColor="#fff"
+                android:elevation="10dp"
+                android:background="@drawable/button_yellow"
+                android:theme="@style/Button"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>
