@@ -3,38 +3,91 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorBlueTheme">
 
 
-    <AutoCompleteTextView
-        android:id="@+id/autoCompleteTextView"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:completionThreshold="1" />
-
-    <EditText
-        android:id="@+id/price"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_below="@+id/autoCompleteTextView"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:inputType="numberDecimal" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            android:background="@drawable/yellow_toolbar">
 
-    <Button
-        android:id="@+id/btnRegisterPoints"
-        android:layout_marginTop="30dp"
-        android:layout_width="wrap_content"
-        android:layout_below="@+id/price"
-        android:layout_height="wrap_content"
-        android:text="Solicitar código de pontos"
-        android:onClick="generatePoints"
-        tools:layout_editor_absoluteX="152dp"
-        tools:layout_editor_absoluteY="212dp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:theme="@style/Title"
+                    android:layout_weight="1"
+                    android:textColor="#666666"
+                    android:text="Solicitar Código de Pontos" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_centerVertical="true">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextView"
+                    android:layout_height="48dp"
+                    android:layout_width="match_parent"
+                    android:shadowColor="#000"
+                    android:elevation="10dp"
+                    android:background="@drawable/text_box_background"
+                    android:theme="@style/EditText"
+                    android:layout_marginHorizontal="48dp"
+                    android:hint="Empresa"
+                    android:completionThreshold="1" />
+
+                <EditText
+                    android:id="@+id/price"
+                    android:layout_height="48dp"
+                    android:layout_width="match_parent"
+                    android:shadowColor="#000"
+                    android:elevation="10dp"
+                    android:background="@drawable/text_box_background"
+                    android:theme="@style/EditText"
+                    android:layout_marginHorizontal="48dp"
+                    android:layout_marginTop="50dp"
+                    android:fontFamily="serif"
+                    android:hint="R$ 0.00"
+                    android:completionThreshold="1" />
+
+                <Button
+                    android:id="@+id/btnRegisterPoints"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="100dp"
+                    android:onClick="generatePoints"
+                    android:text="Solicitar código de pontos"
+                    android:shadowColor="#000"
+                    android:elevation="10dp"
+                    android:background="@drawable/button_yellow"
+                    android:theme="@style/Button"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
 
 </RelativeLayout>

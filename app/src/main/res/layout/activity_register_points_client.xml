@@ -38,7 +38,6 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:theme="@style/Title"
-                    android:paddingLeft="10dp"
                     android:elevation="24dp"
                     android:shadowColor="#000"
                     android:text="Cadastrar Pontos"/>
