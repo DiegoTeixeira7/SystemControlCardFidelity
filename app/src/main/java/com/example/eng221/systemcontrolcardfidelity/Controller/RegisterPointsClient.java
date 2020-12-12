@@ -1,4 +1,4 @@
-package com.example.eng221.systemcontrolcardfidelity;
+package com.example.eng221.systemcontrolcardfidelity.Controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +11,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.example.eng221.systemcontrolcardfidelity.R;
 
 public class RegisterPointsClient extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     public static final int VOLTAR = 1;

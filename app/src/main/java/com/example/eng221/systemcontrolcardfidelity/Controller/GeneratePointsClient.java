@@ -1,4 +1,4 @@
-package com.example.eng221.systemcontrolcardfidelity;
+package com.example.eng221.systemcontrolcardfidelity.Controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,17 +9,16 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.eng221.systemcontrolcardfidelity.R;
 import com.example.eng221.systemcontrolcardfidelity.Util.BancoDadosSingleton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
 
 import static java.lang.Double.parseDouble;
@@ -102,13 +101,7 @@ public class GeneratePointsClient extends AppCompatActivity {
                 if (Price <= 0) {
                     Toast.makeText(this, "Digite valor positivo maior que 0", Toast.LENGTH_LONG).show();
                 } else {
-                    ContentValues valores = new ContentValues();
-                    assert idEmpresa != null;
-                    valores.put("idEmpresa", idEmpresa.toString());
-                    valores.put("reais", Price);
-                    //valores.put("idCliente", idCliente.toString());
 
-                    BancoDadosSingleton.getInstance().inserir("solicitacoesPontos", valores);
 
                     priceEdt.setText(null);
                     autoC.setText("");
