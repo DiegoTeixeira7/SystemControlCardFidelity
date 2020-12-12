@@ -15,7 +15,7 @@
         android:text="Clientes:" />
 
     <Spinner
-        android:id="@+id/spinnerCategoria"
+        android:id="@+id/spinnerClientes"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:layout_below="@+id/pointsText"
@@ -27,7 +27,7 @@
         android:id="@+id/cpfText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/spinnerCategoria"
+        android:layout_below="@+id/spinnerClientes"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginStart="30dp"

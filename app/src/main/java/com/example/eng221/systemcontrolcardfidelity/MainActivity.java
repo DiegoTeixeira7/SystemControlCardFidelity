@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         String tag = view.getTag().toString();
 
         if (tag.equals("cliente")) {
-            Intent it = new Intent(getBaseContext(), OptionsClient.class);
+            Intent it = new Intent(getBaseContext(), GeneratePointsClient.class);
             startActivity(it);
         } else if (tag.equals("empresa")) {
             Intent it = new Intent(getBaseContext(), GeneratePointsCompany.class);

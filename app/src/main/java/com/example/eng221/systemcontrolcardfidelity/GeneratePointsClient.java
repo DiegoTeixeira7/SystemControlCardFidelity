@@ -9,9 +9,6 @@ import android.widget.AutoCompleteTextView;
 
 public class GeneratePointsClient extends AppCompatActivity {
 
-    private String[] planetas = new String[] { "Mercúrio", "Venus", "Terra", "Marte", "Júptier",
-            "Saturno", "Urano","Netuno", "Plutão" };
-
     private static final String[] ESTADOS = new String[] { "Acre", "Alagoas", "Amapá","Amazonas",
             "Bahia", "Ceará", "Distrito Federal", "Goiás","Espírito Santo", "Maranhão", "Mato Grosso",
             "Mato Grosso do Sul","Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí",
