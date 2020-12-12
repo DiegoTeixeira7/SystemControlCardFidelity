@@ -6,12 +6,123 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.example.eng221.systemcontrolcardfidelity.R;
+
 public final class BancoDadosSingleton {
+
+    // Método: O método de conversão de pontos deverá ser informado pela empresa
+    // idMetodo 0 = X ponto(s) a cada compra;
+    // idMetodo 1 = X ponto(s) a cada um real gasto;
+    // idMetodo 2 = X ponto(s) a cada valor arbitrário informado
 
     private SQLiteDatabase db;
     private static BancoDadosSingleton INSTANCE;
     private final String NOME_BANCO = "sysmtemControlCardFidelity";
-    private final String[] SCRIPT_DATABASE_CREATE = new String[] {};
+    private final String[] SCRIPT_DATABASE_CREATE = new String[] {
+            "CREATE TABLE cliente (" +
+                    "  idCliente INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "  nome TEXT NOT NULL," +
+                    "  email TEXT NOT NULL," +
+                    "  CPF TEXT NOT NULL," +
+                    "  endereco TEXT NOT NULL," +
+                    "  telefone INTEGER NOT NULL," +
+                    "  senha TEXT NOT NULL," +
+                    "  foto TEXT," +
+                    "  typeUssuario INTEGER DEFAULT 0," +
+                    "  dataNascimento TEXT," +
+                    "  temSessao INTEGER DEFAULT 1 NOT NULL" +
+                    ");",
+
+            "INSERT INTO cliente (nome, email, CPF, endereco, telefone, senha) VALUES" +
+                    "('Bob', 'bob@gmail.com', '123.456.789-10', 'Rua Oliveira, Bairro Centro, 234, Minas Gerais' , 1122667712, '123456');",
+
+            "CREATE TABLE empresa (" +
+                    "  idEmpresa INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "  nome TEXT NOT NULL," +
+                    "  email TEXT NOT NULL," +
+                    "  CPForCNPJ TEXT NOT NULL," +
+                    "  endereco TEXT NOT NULL," +
+                    "  segmento TEXT NOT NULL," +
+                    "  lat INTEGER NOT NULL ," +
+                    "  long INTEGER NOT NULL ," +
+                    "  senha TEXT NOT NULL," +
+                    "  inadimplente INTEGER  DEFAULT 0 NOT NULL ," +
+                    "  typeUsuario INTEGER DEFAULT 1," +
+                    "  pontos INTEGER NOT NULL," +
+                    "  idMetodo INTEGER NOT NULL," +
+                    "  reais REAL," +
+                    "  telefone INTEGER," +
+                    "  avaliacao INTEGER DEFAULT 0 NOT NULL," +
+                    "  avaliacaoMetodo INTEGER DEFAULT 0 NOT NULL," +
+                    "  temSessao INTEGER DEFAULT 1 NOT NULL," +
+                    "  reqExclusao INTEGER DEFAULT 0  NOT NULL," +
+                    "  diasParaExlusao INTEGER DEFAULT 15" +
+                    ");",
+
+            "INSERT INTO empresa (nome, email, CPForCNPJ, endereco, segmento, lat, long, senha, pontos, idMetodo, reais) VALUES" +
+                    "('Amazon', 'amazon@gmail.com', '123.456.789.1011121', 'Brazil' , 'Loja virtual', -21.3343434, 42.1212121, '12345', 10, 0, 10)," +
+                    "('Ponto Frio', 'pontofrio@gmail.com', '532.456.789.1011121', 'Brazil' , 'Loja virtual', -20.3343434, 42.1212121, '12345', 5, 1, 0)," +
+                    "('Shop Time', 'shoptime@gmail.com', '532.453.765.1011121', 'Brazil' , 'Loja virtual', -20.3343434, 41.1212121, '12345', 10, 2, 10);",
+
+            "CREATE TABLE recompensas (" +
+                    "  idRecompeas INTEGER PRIMARY KEY AUTOINCREMENT ," +
+                    "  idEmpresa INTEGER NOT NULL," +
+                    "  pontos INTEGER NOT NULL," +
+                    "  idMetodo INTEGER NOT NULL," +
+                    "  reais REAL," +
+                    "  CONSTRAINT fk_recompensa_empresa FOREIGN KEY (idEmpresa) REFERENCES empresa (idEmpresa)" +
+                    ");",
+
+            "CREATE TABLE solicitacoesPontos (" +
+                    "  idSolicitacoesPontos INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "  idEmpresa INTEGER," +
+                    "  idCliente INTEGER," +
+                    "  reais REAL NOT NULL," +
+                    "  dataCriacao TEXT," +
+                    "  CONSTRAINT fk_solicitacoesPontos_empresa FOREIGN KEY (idEmpresa) REFERENCES empresa (idEmpresa)," +
+                    "  CONSTRAINT fk_solicitacoesPontos_cliente FOREIGN KEY (idCliente) REFERENCES cliente (idCliente)" +
+                    ");",
+
+            "CREATE TABLE pontosResgatar (" +
+                    "  idPontosResgatar INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "  idEmpresa INTEGER," +
+                    "  idCliente INTEGER," +
+                    "  reais REAL NOT NULL," +
+                    "  pontosGanhar INTEGER NOT NULL," +
+                    "  codeAlpfa TEXT NOT NULL ," +
+                    "  qrCode INTEGER NOT NULL ," +
+                    "  resgatado INTEGER  DEFAULT 0 NOT NULL ," +
+                    "  dataCriacao TEXT ," +
+                    "  dataResgatado TEXT ," +
+                    "  CONSTRAINT fk_pontosResgatar_empresa FOREIGN KEY (idEmpresa) REFERENCES empresa (idEmpresa)," +
+                    "  CONSTRAINT fk_pontosResgatar_cliente FOREIGN KEY (idCliente) REFERENCES cliente (idCliente)" +
+                    ");",
+
+            "CREATE TABLE solicitacoesResgate (" +
+                    "  idsolicitacoesResgate INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "  idEmpresa INTEGER," +
+                    "  idCliente INTEGER," +
+                    "  idRecompeas INTEGER PRIMARY KEY," +
+                    "  codeAlpfa TEXT NOT NULL ," +
+                    "  qrCode INTEGER NOT NULL ," +
+                    "  validado INTEGER  DEFAULT 0 NOT NULL ," +
+                    "  dataCriacao TEXT ," +
+                    "  dataValidado TEXT ," +
+                    "  CONSTRAINT fk_solicitacoesResgate_empresa FOREIGN KEY (idEmpresa) REFERENCES empresa (idEmpresa)," +
+                    "  CONSTRAINT fk_solicitacoesResgate_cliente FOREIGN KEY (idCliente) REFERENCES cliente (idCliente)," +
+                    "  CONSTRAINT fk_solicitacoesResgate_recompensas FOREIGN KEY (idRecompeas) REFERENCES solicitacoesResgate (idRecompeas)" +
+                    ");",
+
+            "CREATE TABLE pontos (" +
+                    "  idPontos INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "  idEmpresa INTEGER," +
+                    "  idCliente INTEGER," +
+                    "  pontosTotal INTEGER  DEFAULT 0 NOT NULL," +
+                    "  pontosRegatar INTEGER  DEFAULT 0 NOT NULL," +
+                    "  CONSTRAINT fk_pontos_empresa FOREIGN KEY (idEmpresa) REFERENCES empresa (idEmpresa)," +
+                    "  CONSTRAINT fk_pontos_cliente FOREIGN KEY (idCliente) REFERENCES cliente (idCliente)" +
+                    ");"
+    };
 
     private BancoDadosSingleton() {
         Context ctx = MyApp.getAppContext();
@@ -26,6 +137,7 @@ public final class BancoDadosSingleton {
 
         //Cria tabelas do banco de dados caso o mesmo estiver vazio.
         //bancos criados pelo método openOrCreateDatabase() possuem uma tabela padrão "android_metadata"
+
         if(c.getCount() == 1){
             for(int i = 0; i < SCRIPT_DATABASE_CREATE.length; i++){
                 db.execSQL(SCRIPT_DATABASE_CREATE[i]);
