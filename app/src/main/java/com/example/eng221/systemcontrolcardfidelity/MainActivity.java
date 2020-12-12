@@ -19,22 +19,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    protected void onStart() {
-        super.onStart();
-        Cursor c = BancoDadosSingleton.getInstance().buscar("empresa", new String[]{"nome"}, "", "");
-        String aux = "";
-
-        while(c.moveToNext()){
-            int nome = c.getColumnIndex("nome");
-
-            aux += "Empresa:" + c.getString(nome) + "\n\n";
-        }
-
-        Toast.makeText(this,aux, Toast.LENGTH_LONG).show();
-
-        c.close();
-    }
-
     public void choiceActivity(View view) {
         String tag = view.getTag().toString();
 
