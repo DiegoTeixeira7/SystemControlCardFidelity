@@ -2,7 +2,10 @@ package com.example.eng221.systemcontrolcardfidelity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -10,6 +13,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 public class RegisterPointsClient extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    public static final int VOLTAR = 1;
+    public static final int GENERATEPOINTS = 2;
 
     private String[] planetas = new String[] { "Mercúrio", "Venus", "Terra", "Marte", "Júptier",
             "Saturno", "Urano","Netuno", "Plutão" };
@@ -36,6 +41,33 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
     }
 
     public void onNothingSelected(AdapterView arg0) { }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        MenuItem item = menu.add(0, VOLTAR, 1, "Voltar");
+        menu.add(0, GENERATEPOINTS, 0, "Gerar Pontos");
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == GENERATEPOINTS) {
+            Intent it = new Intent(this, GeneratePointsClient.class);
+            startActivity(it);
+            finish();
+            return true;
+        }
+
+        else if(item.getItemId() == VOLTAR) {
+            finish();
+            return true;
+        }
+
+        return false;
+    }
 
     public void generatePoints(View view) {
     }
