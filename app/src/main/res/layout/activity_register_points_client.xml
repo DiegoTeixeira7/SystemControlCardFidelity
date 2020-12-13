@@ -71,8 +71,8 @@
                 android:layout_marginHorizontal="24dp"
                 android:background="@drawable/text_box_background"
                 android:elevation="10dp"
-                android:theme="@style/EditText"
                 android:prompt="@string/texto_combo" />
+                //android:theme="@style/EditText"
         </LinearLayout>
 
         <LinearLayout

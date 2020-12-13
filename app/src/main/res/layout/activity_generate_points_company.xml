@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="24dp"
                 android:paddingTop="5dp"
-                android:text="CLientes"
+                android:text="Clientes"
                 android:textSize="12dp"
                 android:theme="@style/Description" />
 
@@ -63,8 +63,8 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/text_box_background"
                 android:elevation="10dp"
-                android:prompt="@string/texto_combo"
-                android:theme="@style/EditText" />
+                android:prompt="@string/texto_combo" />
+                //android:theme="@style/EditText"
 
         </LinearLayout>
 

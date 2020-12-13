@@ -32,7 +32,9 @@
             android:minHeight="100dp"
             android:layout_marginTop="50dp"
             android:textSize="32dp"
-            android:text="Cliente" />
+            android:text="Cliente"
+            android:tag="cliente"
+            android:onClick="choiceActivity"/>
 
         <Button
             android:id="@+id/btnCompany"
@@ -46,7 +48,9 @@
             android:minHeight="100dp"
             android:layout_marginTop="50dp"
             android:textSize="32dp"
-            android:text="Empresa" />
+            android:text="Empresa"
+            android:tag="empresa"
+            android:onClick="choiceActivity"/>
     </LinearLayout>
 
 </RelativeLayout>

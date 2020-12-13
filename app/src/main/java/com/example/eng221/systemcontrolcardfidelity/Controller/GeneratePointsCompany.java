@@ -30,7 +30,7 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
     public ArrayList<String> clientes = new ArrayList<>();
     public Map<Integer, Integer> map = new HashMap<Integer, Integer>();
     public ArrayAdapter<String> adapter;
-    public int idSolic;;
+    public int idSolic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
