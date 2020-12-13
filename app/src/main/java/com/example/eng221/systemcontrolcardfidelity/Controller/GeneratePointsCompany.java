@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.eng221.systemcontrolcardfidelity.Model.ControladoraFachadaSingleton;
 import com.example.eng221.systemcontrolcardfidelity.R;
 
 public class GeneratePointsCompany extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -63,5 +64,6 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
     }
 
     public void codes(View view) {
+        Toast.makeText(this,  ControladoraFachadaSingleton.getInstance(1).getEmpresa().exibirEmpresa(), Toast.LENGTH_LONG).show();
     }
 }
