@@ -58,4 +58,13 @@
         <item name="android:shadowColor">#000</item>
     </style>
 
+    <style name="subTitleNormal" parent="android:Widget.TextView">
+        <item name="color">#fff</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="elevation">10dp</item>
+        <item name="android:shadowRadius">4</item>
+        <item name="android:shadowColor">#000</item>
+    </style>
+
 </resources>

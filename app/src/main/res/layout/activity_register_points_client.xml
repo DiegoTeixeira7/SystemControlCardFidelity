@@ -39,7 +39,6 @@
                     android:layout_centerVertical="true"
                     android:theme="@style/Title"
                     android:elevation="24dp"
-                    android:shadowColor="#000"
                     android:text="Cadastrar Pontos"/>
 
             </RelativeLayout>
@@ -50,7 +49,7 @@
             android:layout_height="100dp"
             android:orientation="vertical"
             android:background="@drawable/yellow_toolbar"
-            android:elevation="10dp"
+            android:elevation="20dp"
             android:outlineAmbientShadowColor="#000">
 
             <TextView
