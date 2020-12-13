@@ -1,5 +1,6 @@
 package com.example.eng221.systemcontrolcardfidelity.Model;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.example.eng221.systemcontrolcardfidelity.Util.BancoDadosSingleton;
@@ -73,8 +74,24 @@ public class Empresa {
     }
 
     public String exibirEmpresa() {
-
         return  getNome();
+    }
+
+    public void pontosResgatar(int idCliente, double reais, String codeALpha, String qrCode, int pontoGanhar) {
+
+        ContentValues valores = new ContentValues();
+        valores.put("idEmpresa", getIdEmpresa());
+        valores.put("idCliente", idCliente);
+        valores.put("reais", reais);
+        valores.put("pontoGanhar", pontoGanhar);
+        valores.put("codeALpha", codeALpha);
+        valores.put("qrCode", qrCode);
+
+        BancoDadosSingleton.getInstance().inserir("pontosResgatar", valores);
+    }
+
+    public void excluirSolicitacao(int idSolic) {
+        BancoDadosSingleton.getInstance().deletar("solicitacoesPontos", "idSolicitacoesPontos='"+idSolic+"'");
     }
 
 }
