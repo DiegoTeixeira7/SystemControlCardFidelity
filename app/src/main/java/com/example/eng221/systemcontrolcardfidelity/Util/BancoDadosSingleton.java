@@ -60,8 +60,8 @@ public final class BancoDadosSingleton {
                     ");",
 
             "INSERT INTO empresa (nome, email, CPForCNPJ, endereco, segmento, lat, long, senha, pontos, idMetodo, reais) VALUES" +
-                    "('Amazon', 'amazon@gmail.com', '123.456.789.1011121', 'Brazil' , 'Loja virtual', -21.3343434, 42.1212121, '12345', 10, 0, 10)," +
-                    "('Ponto Frio', 'pontofrio@gmail.com', '532.456.789.1011121', 'Brazil' , 'Loja virtual', -20.3343434, 42.1212121, '12345', 5, 1, 0)," +
+                    "('Amazon', 'amazon@gmail.com', '123.456.789.1011121', 'Brazil' , 'Loja virtual', -21.3343434, 42.1212121, '12345', 10, 0, 0)," +
+                    "('Ponto Frio', 'pontofrio@gmail.com', '532.456.789.1011121', 'Brazil' , 'Loja virtual', -20.3343434, 42.1212121, '12345', 5, 1, 1)," +
                     "('Shop Time', 'shoptime@gmail.com', '532.453.765.1011121', 'Brazil' , 'Loja virtual', -20.3343434, 41.1212121, '12345', 10, 2, 10);",
 
             "CREATE TABLE recompensas (" +

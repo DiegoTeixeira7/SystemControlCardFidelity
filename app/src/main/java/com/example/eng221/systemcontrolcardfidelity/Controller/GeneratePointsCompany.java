@@ -31,6 +31,10 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
     public Map<Integer, Integer> map = new HashMap<Integer, Integer>();
     public ArrayAdapter<String> adapter;
     public int idSolic;
+    public int idEmpresa = -1;
+    public int idCliente = -1;
+    public double Reais = 0;
+    public String nomeC = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +53,7 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
         adapter.setNotifyOnChange(false);
 
         try {
-            Cursor c = BancoDadosSingleton.getInstance().buscar("solicitacoesPontos", new String[]{"idSolicitacoesPontos","idCliente", "reais", "nomeC"}, "idEmpresa='"+1+"'", "");
+            Cursor c = BancoDadosSingleton.getInstance().buscar("solicitacoesPontos", new String[]{"idSolicitacoesPontos","idCliente", "reais", "nomeC"}, "idEmpresa='"+3+"'", "");
 
             int i = 0;
 
@@ -107,11 +111,36 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
     public void codes(View view) {
         //Toast.makeText(this,  ControladoraFachadaSingleton.getInstance(1).getEmpresa().exibirEmpresa(), Toast.LENGTH_LONG).show();
 
-        int idEmpresa = -1;
-        int idCliente = -1;
-        double Reais = 0;
-        String nomeC = "";
+        buscaSOlicitacoes();
 
+        EditText priceEdt = findViewById(R.id.price);
+        String price = priceEdt.getText().toString();
+
+        if(price.equals("")){
+            Toast.makeText(this, "Preencha todos os campos!" ,Toast.LENGTH_LONG).show();
+        } else {
+            double Price = parseDouble(price);
+
+            if (Price != Reais) {
+                Toast.makeText(this, "Valor digitado diferente do valor informado pelo cliente", Toast.LENGTH_LONG).show();
+            } else {
+                int pontosE = ControladoraFachadaSingleton.getInstance(idEmpresa).getEmpresa().getPontos();
+                int metodoIdE = ControladoraFachadaSingleton.getInstance(idEmpresa).getEmpresa().getIdMetodo();
+                double reaisE = ControladoraFachadaSingleton.getInstance(idEmpresa).getEmpresa().getReais();
+
+                if((metodoIdE != 0) && (metodoIdE != 1) && (metodoIdE != 2)) {
+                    Toast.makeText(this, "Método de conversão de pontos não identificado", Toast.LENGTH_LONG).show();
+                } else {
+                    int pontosResgatar = geraPontos(metodoIdE, pontosE, reaisE, Price);
+
+                    Toast.makeText(this, "pontosE: " + pontosE + "metodoIdE: " + metodoIdE + "reaisE: " + reaisE +  "\n" + "PontosR: " + pontosResgatar, Toast.LENGTH_LONG).show();
+
+                }
+            }
+        }
+    }
+
+    private void buscaSOlicitacoes(){
         try {
             Cursor c = BancoDadosSingleton.getInstance().buscar("solicitacoesPontos", new String[]{"idSolicitacoesPontos","idCliente", "idEmpresa", "reais", "nomeC"}, "idSolicitacoesPontos='"+idSolic+"'", "");
 
@@ -128,27 +157,38 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
 
             }
 
+            //Toast.makeText(this, "IdSolic: " + idSolic + " IdEmpersa: " + idEmpresa + " IdCliente: " +  idCliente + " Reais: " + Reais + " NomeC: " + nomeC + "\n",Toast.LENGTH_LONG).show();
             c.close();
         } catch (Exception e) {
             Toast.makeText(this, "Nenhuma solicitação", Toast.LENGTH_SHORT).show();
         }
+    }
 
-        //Toast.makeText(this, "IdSolic: " + idSolic + " IdEmpersa: " + idEmpresa + " IdCliente: " +  idCliente + " Reais: " + Reais + " NomeC: " + nomeC + "\n",Toast.LENGTH_LONG).show();
+    private int geraPontos(int metodoIdE, int pontosE, double reaisE, double reaisC) {
+        // Método: O método de conversão de pontos deverá ser informado pela empresa
+        // metodoIdE 0 = X ponto(s) a cada compra;
+        // metodoIdE 1 = X ponto(s) a cada um real gasto;
+        // metodoIdE 2 = X ponto(s) a cada valor arbitrário informado
 
-        EditText priceEdt = findViewById(R.id.price);
-        String price = priceEdt.getText().toString();
+        int pontos = 0;
 
-        if(price.equals("")){
-            Toast.makeText(this, "Preencha todos os campos!" ,Toast.LENGTH_LONG).show();
+        if(metodoIdE == 0) {
+            pontos = pontosE;
+        } else if (metodoIdE == 1) {
+            pontos = pontosE * (int)(reaisE);
         } else {
-            double Price = parseDouble(price);
-
-            if (Price != Reais) {
-                Toast.makeText(this, "Valor digitado diferente do valor informado pelo cliente", Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(this, "Código de pontos enviado" + Price, Toast.LENGTH_LONG).show();
-            }
+            pontos = pontosE * ((int)reaisC/(int)(reaisE));
         }
+
+        return pontos;
+    }
+
+    private String geraCodeAlpfa() {
+        return "1231232sdfafasf12d12";
+    }
+
+    private String geraQRCode(String alfaNumerico) {
+        return alfaNumerico + "string_com_o_caminho";
     }
 
 }
