@@ -2,8 +2,10 @@ package com.example.eng221.systemcontrolcardfidelity.Controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.database.Cursor;
 import android.location.LocationListener;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,35 +16,60 @@ import android.widget.Toast;
 
 import com.example.eng221.systemcontrolcardfidelity.Model.ControladoraFachadaSingleton;
 import com.example.eng221.systemcontrolcardfidelity.R;
+import com.example.eng221.systemcontrolcardfidelity.Util.BancoDadosSingleton;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GeneratePointsCompany extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     public static final int VOLTAR = 1;
-
-    private String[] planetas = new String[] { "Mercúrio", "Venus", "Terra", "Marte", "Júptier",
-            "Saturno", "Urano","Netuno", "Plutão" };
+    public ArrayList<String> clientes = new ArrayList<>();
+    public Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+    public ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_points_company);
 
-        Spinner combo = (Spinner) findViewById(R.id.spinnerClientes);
-        combo.setOnItemSelectedListener(this); //configura método de seleção
-
-        //configura adaptador
-        ArrayAdapter<String> adaptadorSpinner =
-                new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, planetas);
-        adaptadorSpinner.setDropDownViewResource(android.R.layout.simple_spinner_item);
-
-        //informa qual é o adaptador
-        combo.setAdapter(adaptadorSpinner);
+        Spinner s = findViewById(R.id.spinnerClientes);
+        s.setOnItemSelectedListener(this); //configura método de seleção
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, clientes);
+        s.setAdapter(adapter);
     }
 
-    public void onItemSelected(AdapterView parent, View v, int posicao, long id) {
-        Toast.makeText(this, "Item: " + planetas[posicao], Toast.LENGTH_SHORT).show();
-    }
+    protected void onStart() {
+        super.onStart();
 
-    public void onNothingSelected(AdapterView arg0) { }
+        adapter.setNotifyOnChange(false);
+
+        try {
+            Cursor c = BancoDadosSingleton.getInstance().buscar("solicitacoesPontos", new String[]{"idSolicitacoesPontos","idCliente", "reais", "nomeC"}, "idEmpresa='"+1+"'", "");
+
+            int i = 0;
+
+            while(c.moveToNext()){
+                int nomeC = c.getColumnIndex("nomeC");
+                int idSolicitacoesPontos = c.getColumnIndex("idSolicitacoesPontos");
+                int idCliente = c.getColumnIndex("idCliente");
+                int reais = c.getColumnIndex("reais");
+
+                clientes.add(c.getString(nomeC) + " - R$ " + c.getDouble(reais));
+                map.put(i, c.getInt(idSolicitacoesPontos));
+                i++;
+            }
+
+            // Habilitar novamente a notificacao
+            adapter.setNotifyOnChange(true);
+            // Notifica o Spinner de que houve mudanca no modelo
+            adapter.notifyDataSetChanged();
+
+            c.close();
+        } catch (Exception e) {
+            Toast.makeText(this, "Nenhuma solicitação", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -63,7 +90,16 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
         return false;
     }
 
-    public void codes(View view) {
-        Toast.makeText(this,  ControladoraFachadaSingleton.getInstance(1).getEmpresa().exibirEmpresa(), Toast.LENGTH_LONG).show();
+    public void onItemSelected(AdapterView parent, View v, int posicao, long id) {
+        Integer idSolicitacao = map.get(posicao);
+        Toast.makeText(this, "Item: " + clientes.get(posicao) + " id: " + idSolicitacao.toString() , Toast.LENGTH_SHORT).show();
     }
+
+    public void onNothingSelected(AdapterView arg0) { }
+
+    public void codes(View view) {
+        //Toast.makeText(this,  ControladoraFachadaSingleton.getInstance(1).getEmpresa().exibirEmpresa(), Toast.LENGTH_LONG).show();
+
+    }
+
 }

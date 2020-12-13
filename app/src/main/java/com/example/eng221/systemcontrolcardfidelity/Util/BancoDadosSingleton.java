@@ -77,6 +77,7 @@ public final class BancoDadosSingleton {
                     "  idSolicitacoesPontos INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "  idEmpresa INTEGER," +
                     "  idCliente INTEGER," +
+                    "  nomeC TEXT NOT NULL," +
                     "  reais REAL NOT NULL," +
                     "  dataCriacao TEXT," +
                     "  CONSTRAINT fk_solicitacoesPontos_empresa FOREIGN KEY (idEmpresa) REFERENCES empresa (idEmpresa)," +

@@ -63,6 +63,7 @@ public class Cliente {
         valores.put("idEmpresa", idEmpresa.toString());
         valores.put("reais", reais);
         valores.put("idCliente", getIdCliente());
+        valores.put("nomeC", getNome());
         BancoDadosSingleton.getInstance().inserir("solicitacoesPontos", valores);
     }
 
