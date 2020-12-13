@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -22,11 +23,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.lang.Double.parseDouble;
+
 public class GeneratePointsCompany extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     public static final int VOLTAR = 1;
     public ArrayList<String> clientes = new ArrayList<>();
     public Map<Integer, Integer> map = new HashMap<Integer, Integer>();
     public ArrayAdapter<String> adapter;
+    public int idSolic;;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +96,9 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
 
     public void onItemSelected(AdapterView parent, View v, int posicao, long id) {
         Integer idSolicitacao = map.get(posicao);
+        if (idSolicitacao != null) {
+            idSolic = Integer.parseInt(idSolicitacao.toString());
+        }
         Toast.makeText(this, "Item: " + clientes.get(posicao) + " id: " + idSolicitacao.toString() , Toast.LENGTH_SHORT).show();
     }
 
@@ -100,6 +107,48 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
     public void codes(View view) {
         //Toast.makeText(this,  ControladoraFachadaSingleton.getInstance(1).getEmpresa().exibirEmpresa(), Toast.LENGTH_LONG).show();
 
+        int idEmpresa = -1;
+        int idCliente = -1;
+        double Reais = 0;
+        String nomeC = "";
+
+        try {
+            Cursor c = BancoDadosSingleton.getInstance().buscar("solicitacoesPontos", new String[]{"idSolicitacoesPontos","idCliente", "idEmpresa", "reais", "nomeC"}, "idSolicitacoesPontos='"+idSolic+"'", "");
+
+            while(c.moveToNext()){
+                int nC = c.getColumnIndex("nomeC");
+                int idE = c.getColumnIndex("idEmpresa");
+                int idC = c.getColumnIndex("idCliente");
+                int r = c.getColumnIndex("reais");
+
+                idEmpresa = c.getInt(idE);
+                idCliente = c.getInt(idC);
+                Reais = c.getDouble(r);
+                nomeC = c.getString(nC);
+
+            }
+
+            c.close();
+        } catch (Exception e) {
+            Toast.makeText(this, "Nenhuma solicitação", Toast.LENGTH_SHORT).show();
+        }
+
+        //Toast.makeText(this, "IdSolic: " + idSolic + " IdEmpersa: " + idEmpresa + " IdCliente: " +  idCliente + " Reais: " + Reais + " NomeC: " + nomeC + "\n",Toast.LENGTH_LONG).show();
+
+        EditText priceEdt = findViewById(R.id.price);
+        String price = priceEdt.getText().toString();
+
+        if(price.equals("")){
+            Toast.makeText(this, "Preencha todos os campos!" ,Toast.LENGTH_LONG).show();
+        } else {
+            double Price = parseDouble(price);
+
+            if (Price != Reais) {
+                Toast.makeText(this, "Valor digitado diferente do valor informado pelo cliente", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "Código de pontos enviado" + Price, Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
 }
