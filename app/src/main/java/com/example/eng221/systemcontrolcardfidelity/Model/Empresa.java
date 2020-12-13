@@ -77,14 +77,15 @@ public class Empresa {
         return  getNome();
     }
 
-    public void pontosResgatar(int idCliente, double reais, String codeALpha, String qrCode, int pontoGanhar) {
+    public void pontosResgatar(int idCliente, double reais, String codeAlfa, String qrCode, int pontosGanhar, String nomeE) {
 
         ContentValues valores = new ContentValues();
         valores.put("idEmpresa", getIdEmpresa());
+        valores.put("nomeE", nomeE);
         valores.put("idCliente", idCliente);
         valores.put("reais", reais);
-        valores.put("pontoGanhar", pontoGanhar);
-        valores.put("codeALpha", codeALpha);
+        valores.put("pontosGanhar", pontosGanhar);
+        valores.put("codeAlfa", codeAlfa);
         valores.put("qrCode", qrCode);
 
         BancoDadosSingleton.getInstance().inserir("pontosResgatar", valores);
@@ -92,6 +93,23 @@ public class Empresa {
 
     public void excluirSolicitacao(int idSolic) {
         BancoDadosSingleton.getInstance().deletar("solicitacoesPontos", "idSolicitacoesPontos='"+idSolic+"'");
+    }
+
+    public String exibirPontosRegatar(){
+        Cursor c = BancoDadosSingleton.getInstance().buscar("pontosResgatar", new String[]{"idPontosResgatar", "idEmpresa", "nomeE"}, "", "");
+
+        String aux = "";
+        while(c.moveToNext()){
+            int idPontosResgatar = c.getColumnIndex("idPontosResgatar");
+            int idEmpresa = c.getColumnIndex("idEmpresa");
+            int nomeE = c.getColumnIndex("nomeE");
+
+            aux += "idPontosResgatar: " + c.getInt(idPontosResgatar) + " - idEmpresa: " + c.getInt(idEmpresa) + " - nomeE: "  + c.getString(nomeE) + "\n\n";
+        }
+
+        c.close();
+
+        return  aux;
     }
 
 }

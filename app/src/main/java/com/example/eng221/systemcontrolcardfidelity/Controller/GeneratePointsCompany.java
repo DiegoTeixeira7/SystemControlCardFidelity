@@ -2,6 +2,7 @@ package com.example.eng221.systemcontrolcardfidelity.Controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.location.LocationListener;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.eng221.systemcontrolcardfidelity.Model.ControladoraFachadaSingleton;
@@ -35,6 +37,8 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
     public int idCliente = -1;
     public double Reais = 0;
     public String nomeC = "";
+    public String codeAlfanumerico = "";
+    public String caminhoQRCodeGerado = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +57,7 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
         adapter.setNotifyOnChange(false);
 
         try {
-            Cursor c = BancoDadosSingleton.getInstance().buscar("solicitacoesPontos", new String[]{"idSolicitacoesPontos","idCliente", "reais", "nomeC"}, "idEmpresa='"+3+"'", "");
+            Cursor c = BancoDadosSingleton.getInstance().buscar("solicitacoesPontos", new String[]{"idSolicitacoesPontos","idCliente", "reais", "nomeC"}, "idEmpresa='"+1+"'", "");
 
             int i = 0;
 
@@ -103,7 +107,9 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
         if (idSolicitacao != null) {
             idSolic = Integer.parseInt(idSolicitacao.toString());
         }
-        Toast.makeText(this, "Item: " + clientes.get(posicao) + " id: " + idSolicitacao.toString() , Toast.LENGTH_SHORT).show();
+        TextView cpf = findViewById(R.id.cpfText);
+        cpf.setText(ControladoraFachadaSingleton.getInstance().getCliente().getCPF().toString());
+        //Toast.makeText(this, "Item: " + clientes.get(posicao) + " id: " + idSolicitacao.toString() , Toast.LENGTH_SHORT).show();
     }
 
     public void onNothingSelected(AdapterView arg0) { }
@@ -131,18 +137,28 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
                 if((metodoIdE != 0) && (metodoIdE != 1) && (metodoIdE != 2)) {
                     Toast.makeText(this, "Método de conversão de pontos não identificado", Toast.LENGTH_LONG).show();
                 } else {
-                    int pontosResgatar = geraPontos(metodoIdE, pontosE, reaisE, Price);
-                    String codeAlfanumerico = geraCodeAlpfa();
-                    String caminhoQRCodeGerado = geraQRCode(codeAlfanumerico);
+                    String tag = view.getTag().toString();
+                    TextView alfa = findViewById(R.id.codeAlpha);
 
-                    if(codeAlfanumerico.equals("") || caminhoQRCodeGerado.equals("")) {
-                        Toast.makeText(this, "Problema ao gerar os códigos!", Toast.LENGTH_LONG).show();
-                    } else {
-                        saveBD(codeAlfanumerico, caminhoQRCodeGerado, pontosResgatar);
-                        excluiSolicitacaoBD();
-                        recreate();
-                        priceEdt.setText(null);
-                        //Toast.makeText(this, "pontosE: " + pontosE + "metodoIdE: " + metodoIdE + "reaisE: " + reaisE +  "\n" + "PontosR: " + pontosResgatar, Toast.LENGTH_LONG).show();
+                    if (tag.equals("generateCodes")) {
+                        codeAlfanumerico = geraCodeAlfa();
+                        alfa.setText(codeAlfanumerico);
+                        caminhoQRCodeGerado = geraQRCode(codeAlfanumerico);
+                    } else if (tag.equals("sendCodes")) {
+                        int pontosResgatar = geraPontos(metodoIdE, pontosE, reaisE, Price);
+
+                        if(codeAlfanumerico.equals("") || caminhoQRCodeGerado.equals("")) {
+                            Toast.makeText(this, "Problema ao gerar os códigos!", Toast.LENGTH_LONG).show();
+                        } else {
+                            saveBD(codeAlfanumerico, caminhoQRCodeGerado, pontosResgatar);
+                            excluiSolicitacaoBD();
+                            priceEdt.setText(null);
+                            TextView CPF = findViewById(R.id.cpfText);
+                            CPF.setText("");
+                            alfa.setText("");
+                            recreate();
+                            //Toast.makeText(this, "pontosE: " + pontosE + "metodoIdE: " + metodoIdE + "reaisE: " + reaisE +  "\n" + "PontosR: " + pontosResgatar, Toast.LENGTH_LONG).show();
+                        }
                     }
                 }
             }
@@ -191,7 +207,7 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
         return pontos;
     }
 
-    private String geraCodeAlpfa() {
+    private String geraCodeAlfa() {
         return "1231232sdfafasf12d12";
     }
 
@@ -199,8 +215,11 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
         return alfaNumerico + "string_com_o_caminho";
     }
 
-    private void saveBD(String codeALpha, String qrCode, int pontoGanhar) {
-        ControladoraFachadaSingleton.getInstance(idEmpresa).getEmpresa().pontosResgatar(idCliente, Reais, codeALpha, qrCode, pontoGanhar);
+    private void saveBD(String codeAlfa, String qrCode, int pontoGanhar) {
+        String nomeE = ControladoraFachadaSingleton.getInstance(idEmpresa).getEmpresa().getNome();
+        ControladoraFachadaSingleton.getInstance(idEmpresa).getEmpresa().pontosResgatar(idCliente, Reais, codeAlfa, qrCode, pontoGanhar,nomeE);
+        //Toast.makeText(this, "nomeE: "+nomeE + "idEmpresa: "+idEmpresa, Toast.LENGTH_SHORT).show();
+
     }
 
     private void excluiSolicitacaoBD() {

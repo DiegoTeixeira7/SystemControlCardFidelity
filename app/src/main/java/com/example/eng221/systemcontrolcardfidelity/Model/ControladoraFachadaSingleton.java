@@ -60,7 +60,7 @@ public class ControladoraFachadaSingleton {
             empresa.setIdMetodo(c.getInt(idMetodo));
             empresa.setTemSessao(c.getInt(temSessao));
             empresa.setReais(c.getDouble(reais));
-            empresa.setIdEmpresa(c.getInt(idEmpresa));
+            empresa.setIdEmpresa(idEmpresa);
         }
 
         c.close();

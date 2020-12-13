@@ -87,11 +87,12 @@ public final class BancoDadosSingleton {
             "CREATE TABLE pontosResgatar (" +
                     "  idPontosResgatar INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "  idEmpresa INTEGER," +
+                    "  nomeE TEXT NOT NULL," +
                     "  idCliente INTEGER," +
                     "  reais REAL NOT NULL," +
                     "  pontosGanhar INTEGER NOT NULL," +
-                    "  codeAlpfa TEXT NOT NULL ," +
-                    "  qrCode INTEGER NOT NULL ," +
+                    "  codeAlfa TEXT NOT NULL ," +
+                    "  qrCode TEXT NOT NULL ," +
                     "  resgatado INTEGER  DEFAULT 0 NOT NULL ," +
                     "  dataCriacao TEXT ," +
                     "  dataResgatado TEXT ," +
