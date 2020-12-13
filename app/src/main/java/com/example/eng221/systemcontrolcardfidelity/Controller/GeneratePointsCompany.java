@@ -199,8 +199,12 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
         return alfaNumerico + "string_com_o_caminho";
     }
 
-    private void saveBD(String codeALpha, String qrCode, int pontoGanhar) {
-        ControladoraFachadaSingleton.getInstance(idEmpresa).getEmpresa().pontosResgatar(idCliente, Reais, codeALpha, qrCode, pontoGanhar);
+    private void saveBD(String codeAlfa, String qrCode, int pontoGanhar) {
+        String nomeE = ControladoraFachadaSingleton.getInstance(idEmpresa).getEmpresa().getNome();
+        ControladoraFachadaSingleton.getInstance(idEmpresa).getEmpresa().pontosResgatar(idCliente, Reais, codeAlfa, qrCode, pontoGanhar,nomeE);
+        //Toast.makeText(this, "nomeE: "+nomeE + "idEmpresa: "+idEmpresa, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "T: "+ControladoraFachadaSingleton.getInstance(idEmpresa).getEmpresa().exibirPontosRegatar(), Toast.LENGTH_LONG).show();
+
     }
 
     private void excluiSolicitacaoBD() {
