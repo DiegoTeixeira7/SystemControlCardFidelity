@@ -109,7 +109,7 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
         }
         TextView cpf = findViewById(R.id.cpfText);
         cpf.setText(ControladoraFachadaSingleton.getInstance().getCliente().getCPF().toString());
-        Toast.makeText(this, "Item: " + clientes.get(posicao) + " id: " + idSolicitacao.toString() , Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Item: " + clientes.get(posicao) + " id: " + idSolicitacao.toString() , Toast.LENGTH_SHORT).show();
     }
 
     public void onNothingSelected(AdapterView arg0) { }
@@ -138,9 +138,11 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
                     Toast.makeText(this, "Método de conversão de pontos não identificado", Toast.LENGTH_LONG).show();
                 } else {
                     String tag = view.getTag().toString();
+                    TextView alfa = findViewById(R.id.codeAlpha);
 
                     if (tag.equals("generateCodes")) {
-                        codeAlfanumerico = geraCodeAlpfa();
+                        codeAlfanumerico = geraCodeAlfa();
+                        alfa.setText(codeAlfanumerico);
                         caminhoQRCodeGerado = geraQRCode(codeAlfanumerico);
                     } else if (tag.equals("sendCodes")) {
                         int pontosResgatar = geraPontos(metodoIdE, pontosE, reaisE, Price);
@@ -150,10 +152,11 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
                         } else {
                             saveBD(codeAlfanumerico, caminhoQRCodeGerado, pontosResgatar);
                             excluiSolicitacaoBD();
-                            recreate();
                             priceEdt.setText(null);
                             TextView CPF = findViewById(R.id.cpfText);
                             CPF.setText("");
+                            alfa.setText("");
+                            recreate();
                             //Toast.makeText(this, "pontosE: " + pontosE + "metodoIdE: " + metodoIdE + "reaisE: " + reaisE +  "\n" + "PontosR: " + pontosResgatar, Toast.LENGTH_LONG).show();
                         }
                     }
@@ -204,7 +207,7 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
         return pontos;
     }
 
-    private String geraCodeAlpfa() {
+    private String geraCodeAlfa() {
         return "1231232sdfafasf12d12";
     }
 
@@ -216,7 +219,6 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
         String nomeE = ControladoraFachadaSingleton.getInstance(idEmpresa).getEmpresa().getNome();
         ControladoraFachadaSingleton.getInstance(idEmpresa).getEmpresa().pontosResgatar(idCliente, Reais, codeAlfa, qrCode, pontoGanhar,nomeE);
         //Toast.makeText(this, "nomeE: "+nomeE + "idEmpresa: "+idEmpresa, Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, "T: "+ControladoraFachadaSingleton.getInstance(idEmpresa).getEmpresa().exibirPontosRegatar(), Toast.LENGTH_LONG).show();
 
     }
 
