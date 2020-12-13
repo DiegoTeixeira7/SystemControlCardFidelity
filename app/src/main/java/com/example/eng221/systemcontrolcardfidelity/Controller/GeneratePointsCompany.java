@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.eng221.systemcontrolcardfidelity.Model.ControladoraFachadaSingleton;
@@ -106,6 +107,8 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
         if (idSolicitacao != null) {
             idSolic = Integer.parseInt(idSolicitacao.toString());
         }
+        TextView cpf = findViewById(R.id.cpfText);
+        cpf.setText(ControladoraFachadaSingleton.getInstance().getCliente().getCPF().toString());
         Toast.makeText(this, "Item: " + clientes.get(posicao) + " id: " + idSolicitacao.toString() , Toast.LENGTH_SHORT).show();
     }
 
@@ -149,6 +152,8 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
                             excluiSolicitacaoBD();
                             recreate();
                             priceEdt.setText(null);
+                            TextView CPF = findViewById(R.id.cpfText);
+                            CPF.setText("");
                             //Toast.makeText(this, "pontosE: " + pontosE + "metodoIdE: " + metodoIdE + "reaisE: " + reaisE +  "\n" + "PontosR: " + pontosResgatar, Toast.LENGTH_LONG).show();
                         }
                     }
