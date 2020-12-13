@@ -47,7 +47,7 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
         adapter.setNotifyOnChange(false);
 
         try {
-            Cursor c = BancoDadosSingleton.getInstance().buscar("pontosResgatar", new String[]{"idPontosResgatar", "idEmpresa", "nomeE", "idCliente", "reais", "pontosGanhar", "codeAlfa", "qrCode", "resgatado"}, "idEmpresa='"+3+"'", "");
+            Cursor c = BancoDadosSingleton.getInstance().buscar("pontosResgatar", new String[]{"idPontosResgatar", "idEmpresa", "nomeE", "idCliente", "reais", "pontosGanhar", "codeAlfa", "qrCode", "resgatado"}, "", "");
 
             int i = 0;
             String t = "";

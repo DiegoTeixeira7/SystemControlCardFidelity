@@ -2,6 +2,7 @@ package com.example.eng221.systemcontrolcardfidelity.Controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.location.LocationListener;
 import android.os.Bundle;
@@ -35,6 +36,8 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
     public int idCliente = -1;
     public double Reais = 0;
     public String nomeC = "";
+    public String codeAlfanumerico = "";
+    public String caminhoQRCodeGerado = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +56,7 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
         adapter.setNotifyOnChange(false);
 
         try {
-            Cursor c = BancoDadosSingleton.getInstance().buscar("solicitacoesPontos", new String[]{"idSolicitacoesPontos","idCliente", "reais", "nomeC"}, "idEmpresa='"+3+"'", "");
+            Cursor c = BancoDadosSingleton.getInstance().buscar("solicitacoesPontos", new String[]{"idSolicitacoesPontos","idCliente", "reais", "nomeC"}, "idEmpresa='"+1+"'", "");
 
             int i = 0;
 
@@ -131,18 +134,23 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
                 if((metodoIdE != 0) && (metodoIdE != 1) && (metodoIdE != 2)) {
                     Toast.makeText(this, "Método de conversão de pontos não identificado", Toast.LENGTH_LONG).show();
                 } else {
-                    int pontosResgatar = geraPontos(metodoIdE, pontosE, reaisE, Price);
-                    String codeAlfanumerico = geraCodeAlpfa();
-                    String caminhoQRCodeGerado = geraQRCode(codeAlfanumerico);
+                    String tag = view.getTag().toString();
 
-                    if(codeAlfanumerico.equals("") || caminhoQRCodeGerado.equals("")) {
-                        Toast.makeText(this, "Problema ao gerar os códigos!", Toast.LENGTH_LONG).show();
-                    } else {
-                        saveBD(codeAlfanumerico, caminhoQRCodeGerado, pontosResgatar);
-                        excluiSolicitacaoBD();
-                        recreate();
-                        priceEdt.setText(null);
-                        //Toast.makeText(this, "pontosE: " + pontosE + "metodoIdE: " + metodoIdE + "reaisE: " + reaisE +  "\n" + "PontosR: " + pontosResgatar, Toast.LENGTH_LONG).show();
+                    if (tag.equals("generateCodes")) {
+                        codeAlfanumerico = geraCodeAlpfa();
+                        caminhoQRCodeGerado = geraQRCode(codeAlfanumerico);
+                    } else if (tag.equals("sendCodes")) {
+                        int pontosResgatar = geraPontos(metodoIdE, pontosE, reaisE, Price);
+
+                        if(codeAlfanumerico.equals("") || caminhoQRCodeGerado.equals("")) {
+                            Toast.makeText(this, "Problema ao gerar os códigos!", Toast.LENGTH_LONG).show();
+                        } else {
+                            saveBD(codeAlfanumerico, caminhoQRCodeGerado, pontosResgatar);
+                            excluiSolicitacaoBD();
+                            recreate();
+                            priceEdt.setText(null);
+                            //Toast.makeText(this, "pontosE: " + pontosE + "metodoIdE: " + metodoIdE + "reaisE: " + reaisE +  "\n" + "PontosR: " + pontosResgatar, Toast.LENGTH_LONG).show();
+                        }
                     }
                 }
             }
