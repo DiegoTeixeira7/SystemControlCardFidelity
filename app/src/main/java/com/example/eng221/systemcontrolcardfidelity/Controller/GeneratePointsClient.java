@@ -14,6 +14,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.eng221.systemcontrolcardfidelity.Model.ControladoraFachadaSingleton;
 import com.example.eng221.systemcontrolcardfidelity.R;
 import com.example.eng221.systemcontrolcardfidelity.Util.BancoDadosSingleton;
 
@@ -102,11 +103,14 @@ public class GeneratePointsClient extends AppCompatActivity {
                     Toast.makeText(this, "Digite valor positivo maior que 0", Toast.LENGTH_LONG).show();
                 } else {
 
-
+                    ControladoraFachadaSingleton.getInstance().getCliente().solictarPontos(idEmpresa, Price);
                     priceEdt.setText(null);
                     autoC.setText("");
 
                     Toast.makeText(this, "Solicitação de pontos enviada para empresa " + empr + ". Valor informado R$" + Price, Toast.LENGTH_LONG).show();
+
+                    //Toast.makeText(this,  ControladoraFachadaSingleton.getInstance().getCliente().exibirSolicitacoes(), Toast.LENGTH_LONG).show();
+
                 }
             }
         }

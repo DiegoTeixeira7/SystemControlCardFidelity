@@ -1,6 +1,7 @@
 package com.example.eng221.systemcontrolcardfidelity.Model;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 
 import com.example.eng221.systemcontrolcardfidelity.Util.BancoDadosSingleton;
 
@@ -61,8 +62,25 @@ public class Cliente {
         assert idEmpresa != null;
         valores.put("idEmpresa", idEmpresa.toString());
         valores.put("reais", reais);
-        valores.put("idCliente", idCliente);
+        valores.put("idCliente", getIdCliente());
         BancoDadosSingleton.getInstance().inserir("solicitacoesPontos", valores);
+    }
+
+    public String exibirSolicitacoes(){
+        Cursor c = BancoDadosSingleton.getInstance().buscar("solicitacoesPontos",new String[]{"idCliente","idEmpresa","reais"},"","");
+
+        String aux = "";
+        while(c.moveToNext()){
+            int idCliente = c.getColumnIndex("idCliente");
+            int idEmpresa = c.getColumnIndex("idEmpresa");
+            int reais = c.getColumnIndex("reais");
+
+            aux += "idCliente: " + c.getInt(idCliente) + " - idEmpresa: " + c.getInt(idEmpresa) + " - reais: "  + c.getDouble(reais) + "\n\n";
+        }
+
+        c.close();
+
+        return  aux;
     }
 
 }
