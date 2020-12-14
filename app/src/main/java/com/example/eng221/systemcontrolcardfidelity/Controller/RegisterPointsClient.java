@@ -121,6 +121,16 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
         TextView codeNumberDescription = (TextView) findViewById(R.id.codeAlphaText);
         //TextView codeNumber = (TextView) findViewById(R.id.codeAlpha);
 
+        if(!codigoQRCode.equals("")) {
+            // Gera QrCode
+            Log.i("AndroidT","Aqui 2");
+            try {
+                qrCode.generateQrCode(codigoQRCode);
+            } catch (WriterException e) {
+                e.printStackTrace();
+            }
+        }
+
         // Desenha qrcode
         qrCodeImage.setImageBitmap(qrCode.getBitmap());
         codeNumberDescription.setText("Código alfanumérico:");
@@ -161,11 +171,7 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
     public void generatePoints(View view) throws WriterException, ChecksumException, NotFoundException, FormatException {
         String tag = view.getTag().toString();
         Log.i("AndroidT","Aqui 1");
-        if(!codigoQRCode.equals("")) {
-            // Gera QrCode
-            Log.i("AndroidT","Aqui 2");
-            qrCode.generateQrCode(codigoQRCode);
-        }
+
         Log.i("AndroidT","Aqui 3");
 
 
@@ -179,7 +185,10 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
                     ponto.setIdCliente(idCL);
                     ponto.setIdEmpresa(idEP);
                     ponto.setPontosRegatar(1);
-                    ponto.setPontosTotal(ponto.getPontosTotal()+pontosResgatar);
+
+                    Map<Integer, Ponto> p = cliente.getPonto();
+
+                    ponto.setPontosTotal(+pontosResgatar);
                     ponto.setPontosParaValidar(ponto.getPontosParaValidar()+pontosResgatar);
 
                     mapPonto.put(idEP, ponto);
