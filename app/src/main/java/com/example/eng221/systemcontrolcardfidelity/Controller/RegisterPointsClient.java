@@ -204,7 +204,7 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
 
                         recreate();
 
-                        Toast.makeText(this, "Ponto resgatado na empresa +"+nomeEP+". Voce ganhou "+pontosResgatar+" pontos." + "Voce tem  "+ponto.getPontosParaValidar()+ "para resgatar. Voce tem "+ponto.getPontosTotal()+ " no total!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Ponto resgatado na empresa +"+nomeEP+".\nVoce ganhou "+pontosResgatar+" pontos." + "\nVoce tem  "+ponto.getPontosParaValidar()+ " para resgatar.\nVoce tem "+ponto.getPontosTotal()+ " no total!", Toast.LENGTH_LONG).show();
                     }
 
                     Toast.makeText(this, "Nenhum ponto para validar", Toast.LENGTH_SHORT).show();
@@ -248,7 +248,7 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
 
                                 recreate();
 
-                                Toast.makeText(this, "Ponto resgatado na empresa +"+nomeEP+". Voce ganhou "+pontosResgatar+" pontos." + "Voce tem  "+ponto.getPontosParaValidar()+ "para resgatar. Voce tem "+ponto.getPontosTotal()+ " no total!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this, "Ponto resgatado na empresa +"+nomeEP+".\nVoce ganhou "+pontosResgatar+" pontos." + "\nVoce tem  "+ponto.getPontosParaValidar()+ " para resgatar.\nVoce tem "+ponto.getPontosTotal()+ " no total!", Toast.LENGTH_LONG).show();
                             }
                             Log.i("AndroidT","Aqui 11");
 
