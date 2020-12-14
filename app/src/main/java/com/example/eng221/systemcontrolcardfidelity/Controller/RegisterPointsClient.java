@@ -20,6 +20,10 @@ import com.example.eng221.systemcontrolcardfidelity.Model.ControladoraFachadaSin
 import com.example.eng221.systemcontrolcardfidelity.Model.Ponto;
 import com.example.eng221.systemcontrolcardfidelity.R;
 import com.example.eng221.systemcontrolcardfidelity.Util.BancoDadosSingleton;
+import com.google.zxing.ChecksumException;
+import com.google.zxing.FormatException;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.WriterException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,7 +39,7 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
     public int pontosResgatar;
     public double reaisC;
     public String nomeEP;
-    public String codedigoAlfanumerico;
+    public String codigoAlfanumerico;
     public String codigoQRCode;
 
     QRCode qrCode;
@@ -108,7 +112,7 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
         setVariaveis(idPR);
 
         TextView alfa = findViewById(R.id.codeAlpha);
-        alfa.setText(codedigoAlfanumerico);
+        alfa.setText(codigoAlfanumerico);
 
         Toast.makeText(this, "Item: " + pontosValidacao.get(posicao) + " id: " + idPontosR.toString() , Toast.LENGTH_SHORT).show();
     }
@@ -142,7 +146,7 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
         return false;
     }
 
-    public void generatePoints(View view) {
+    public void generatePoints(View view) throws WriterException, ChecksumException, NotFoundException, FormatException {
         String tag = view.getTag().toString();
 
         if (tag.equals("alfanumerico")) {
@@ -168,8 +172,19 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
             }
         } else if (tag.equals("qrcode")) {
             if(codeResgatado == 0) {
-                //TODO
-            } else {
+                qrCode.generateQrCode(codigoQRCode);
+
+                if(codigoAlfanumerico == qrCode.getCode()){
+
+
+
+                } else {
+                    Toast.makeText(this, "QR Code invalido", Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+            else {
                 Toast.makeText(this, "QR Code já validado", Toast.LENGTH_SHORT).show();
             }
         }
@@ -195,7 +210,7 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
                 codeResgatado = c.getInt(resgatado);
                 pontosResgatar = c.getInt(pontosGanhar);
                 reaisC = c.getInt(reais);
-                codedigoAlfanumerico = c.getString(codeAlpfa);
+                codigoAlfanumerico = c.getString(codeAlpfa);
                 codigoQRCode = c.getString(qrCode);
             }
 
