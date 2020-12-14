@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -149,6 +150,14 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
     public void generatePoints(View view) throws WriterException, ChecksumException, NotFoundException, FormatException {
         String tag = view.getTag().toString();
 
+        // Gera QrCode
+        qrCode.generateQrCode(codigoQRCode);
+
+        // Informacoes de qrcode da tela
+        ImageView qrCodeImage = (ImageView) findViewById(R.id.imageQRCode);
+        TextView codeNumberDescription = (TextView) findViewById(R.id.codeAlphaText);
+        TextView codeNumber = (TextView) findViewById(R.id.codeAlpha);
+
         if (tag.equals("alfanumerico")) {
             if(codeResgatado == 0) {
 
@@ -165,6 +174,11 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
                 // TODO salvar no BD o cliente atualizado
                 // TODO excluir ponto validado so select
 
+                // Desenha qrcode
+                qrCodeImage.setImageBitmap(qrCode.getBitmap());
+                codeNumberDescription.setText("Código alfanumérico:");
+                codeNumber.setText(codigoAlfanumerico);
+
                 Toast.makeText(this, "Ponto resgatado na empresa +"+nomeEP+". Voce ganhou "+pontosResgatar+" pontos." + "Voce tem  "+ponto.getPontosParaValidar()+ "para resgatar. Voce tem "+ponto.getPontosTotal()+ " no total!", Toast.LENGTH_SHORT).show();
 
             } else {
@@ -172,11 +186,12 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
             }
         } else if (tag.equals("qrcode")) {
             if(codeResgatado == 0) {
-                qrCode.generateQrCode(codigoQRCode);
-
                 if(codigoAlfanumerico == qrCode.getCode()){
 
-
+                    //Desenha Qrcode
+                    qrCodeImage.setImageBitmap(qrCode.getBitmap());
+                    codeNumberDescription.setText("Código alfanumérico:");
+                    codeNumber.setText(codigoAlfanumerico);
 
                 } else {
                     Toast.makeText(this, "QR Code invalido", Toast.LENGTH_SHORT).show();
