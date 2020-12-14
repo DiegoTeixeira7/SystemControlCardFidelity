@@ -121,11 +121,11 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
         TextView codeNumberDescription = (TextView) findViewById(R.id.codeAlphaText);
         //TextView codeNumber = (TextView) findViewById(R.id.codeAlpha);
 
-        if(!codigoQRCode.equals("")) {
+        if(!codigoAlfanumerico.equals("")) {
             // Gera QrCode
             Log.i("AndroidT","Aqui 2");
             try {
-                qrCode.generateQrCode(codigoQRCode);
+                qrCode.generateQrCode(codigoAlfanumerico);
             } catch (WriterException e) {
                 e.printStackTrace();
             }
@@ -136,7 +136,7 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
         codeNumberDescription.setText("Código alfanumérico:");
         //codeNumber.setText(codigoAlfanumerico);
 
-        Toast.makeText(this, "Item: " + pontosValidacao.get(posicao) + " id: " + idPontosR.toString() , Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Item: " + pontosValidacao.get(posicao) + " id: " + idPontosR.toString() , Toast.LENGTH_SHORT).show();
     }
 
     public void onNothingSelected(AdapterView arg0) { }
@@ -218,14 +218,52 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
             }
         } else if (tag.equals("qrcode")) {
             if(codeResgatado == 0) {
-                if(codigoAlfanumerico == qrCode.getCode()){
+                if(!codigoAlfanumerico.equals("")) {
+                    if(codigoAlfanumerico.equals(qrCode.getCode())){
+                        try {
+                            ponto.setIdCliente(idCL);
+                            ponto.setIdEmpresa(idEP);
+                            ponto.setPontosRegatar(1);
+
+                            Map<Integer, Ponto> p = cliente.getPonto();
+                            Ponto p2 = p.get(idCL);
+
+                            if(p2 != null) {
+                                ponto.setPontosTotal(p2.getPontosTotal() +pontosResgatar);
+                                ponto.setPontosParaValidar(p2.getPontosParaValidar()+pontosResgatar);
+                            } else {
+                                ponto.setPontosTotal(pontosResgatar);
+                                ponto.setPontosParaValidar(pontosResgatar);
+                            }
 
 
+                            mapPonto.put(idEP, ponto);
+                            //map.put(key, map.get(key) + 1);
+                            cliente.setPonto(mapPonto);
 
+                            if(!codigoAlfanumerico.equals("")) {
+
+                                cliente.resgatarPontos(idEP,ponto.getPontosTotal(),ponto.getPontosParaValidar());
+                                cliente.excluiResgate(idPR);
+
+                                recreate();
+
+                                Toast.makeText(this, "Ponto resgatado na empresa +"+nomeEP+". Voce ganhou "+pontosResgatar+" pontos." + "Voce tem  "+ponto.getPontosParaValidar()+ "para resgatar. Voce tem "+ponto.getPontosTotal()+ " no total!", Toast.LENGTH_SHORT).show();
+                            }
+                            Log.i("AndroidT","Aqui 11");
+
+                            Toast.makeText(this, "Nenhum ponto para validar", Toast.LENGTH_SHORT).show();
+
+                        } catch (Exception e) {
+                            Toast.makeText(this, "Nenhum código para validar", Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+                        Toast.makeText(this, "QR Code invalido", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    Toast.makeText(this, "QR Code invalido", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Nenhum código para validar", Toast.LENGTH_SHORT).show();
                 }
-
 
             }
             else {
