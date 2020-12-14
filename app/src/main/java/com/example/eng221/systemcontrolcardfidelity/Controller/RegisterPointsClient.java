@@ -14,6 +14,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.eng221.systemcontrolcardfidelity.Model.Cliente;
+import com.example.eng221.systemcontrolcardfidelity.Model.ControladoraFachadaSingleton;
+import com.example.eng221.systemcontrolcardfidelity.Model.Ponto;
 import com.example.eng221.systemcontrolcardfidelity.R;
 import com.example.eng221.systemcontrolcardfidelity.Util.BancoDadosSingleton;
 
@@ -38,6 +41,9 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
     public Map<Integer, Integer> map = new HashMap<Integer, Integer>();
     public ArrayAdapter<String> adapter;
 
+    public Map<Integer, Ponto> mapPonto = new HashMap<Integer, Ponto>();
+    public Cliente cliente = ControladoraFachadaSingleton.getInstance().getCliente();
+    Ponto ponto = new Ponto(idCL);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,9 +140,32 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
         String tag = view.getTag().toString();
 
         if (tag.equals("alfanumerico")) {
+            if(codeResgatado == 0) {
 
+                ponto.setIdCliente(idCL);
+                ponto.setIdEmpresa(idEP);
+                ponto.setPontosRegatar(1);
+                ponto.setPontosTotal(ponto.getPontosTotal()+pontosResgatar);
+                ponto.setPontosParaValidar(ponto.getPontosParaValidar()+pontosResgatar);
+
+                mapPonto.put(idEP, ponto);
+                //map.put(key, map.get(key) + 1);
+                cliente.setPonto(mapPonto);
+
+                // TODO salvar no BD o cliente atualizado
+                // TODO excluir ponto validado so select
+
+                Toast.makeText(this, "Ponto resgatado na empresa +"+nomeEP+". Voce ganhou "+pontosResgatar+" pontos." + "Voce tem  "+ponto.getPontosParaValidar()+ "para resgatar. Voce tem "+ponto.getPontosTotal()+ " no total!", Toast.LENGTH_SHORT).show();
+
+            } else {
+                Toast.makeText(this, "Código já validado", Toast.LENGTH_SHORT).show();
+            }
         } else if (tag.equals("qrcode")) {
-
+            if(codeResgatado == 0) {
+                //TODO
+            } else {
+                Toast.makeText(this, "QR Code já validado", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

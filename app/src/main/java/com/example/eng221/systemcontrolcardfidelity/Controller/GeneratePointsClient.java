@@ -37,12 +37,6 @@ public class GeneratePointsClient extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_points_client);
-
-        //Cria um ArrayAdapter para exibir os estados
-        ArrayAdapter<String> adaptador =
-                new ArrayAdapter<String>(this,android.R.layout.select_dialog_item, empresas);
-        AutoCompleteTextView estatos = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
-        estatos.setAdapter(adaptador);
     }
 
     protected void onStart() {

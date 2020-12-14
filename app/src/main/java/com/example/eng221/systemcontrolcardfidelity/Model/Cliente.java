@@ -5,6 +5,10 @@ import android.database.Cursor;
 
 import com.example.eng221.systemcontrolcardfidelity.Util.BancoDadosSingleton;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 public class Cliente {
     private int idCliente;
     private int temSessao;
@@ -12,8 +16,18 @@ public class Cliente {
     private String email;
     private String CPF;
 
+    public Map<Integer, Ponto> ponto = new HashMap<Integer, Ponto>();
+
     public Cliente() {
 
+    }
+
+    public Map<Integer, Ponto> getPonto() {
+        return ponto;
+    }
+
+    public void setPonto(Map<Integer, Ponto> ponto) {
+        this.ponto = ponto;
     }
 
     public String getNome() {
