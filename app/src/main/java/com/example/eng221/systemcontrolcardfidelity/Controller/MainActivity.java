@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // escolhe a tela de cliente ou empresa
     public void choiceActivity(View view) {
         String tag = view.getTag().toString();
 
@@ -38,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(it);
         }
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();

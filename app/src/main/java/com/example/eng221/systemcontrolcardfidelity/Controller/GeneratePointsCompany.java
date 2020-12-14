@@ -70,7 +70,7 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
         adapter.setNotifyOnChange(false);
 
         try {
-            Cursor c = BancoDadosSingleton.getInstance().buscar("solicitacoesPontos", new String[]{"idSolicitacoesPontos","idCliente", "reais", "nomeC"}, "idEmpresa='"+3+"'", "");
+            Cursor c = BancoDadosSingleton.getInstance().buscar("solicitacoesPontos", new String[]{"idSolicitacoesPontos","idCliente", "reais", "nomeC"}, "idEmpresa='"+1+"'", "");
 
             int i = 0;
 

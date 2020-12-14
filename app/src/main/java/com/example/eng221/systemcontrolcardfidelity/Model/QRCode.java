@@ -18,6 +18,8 @@ import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.datamatrix.DataMatrixReader;
 import com.google.zxing.qrcode.QRCodeReader;
 
+// classe para gerar QR COode
+
 public class QRCode{
 
     public final static int QRCodeWidth = 500;
