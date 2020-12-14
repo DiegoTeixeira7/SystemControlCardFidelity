@@ -170,26 +170,26 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
 
     public void generatePoints(View view) throws WriterException, ChecksumException, NotFoundException, FormatException {
         String tag = view.getTag().toString();
-        Log.i("AndroidT","Aqui 1");
-
-        Log.i("AndroidT","Aqui 3");
-
-
-
-        Log.i("AndroidT","Aqui 4");
 
         if (tag.equals("alfanumerico")) {
             if(codeResgatado == 0) {
-                Log.i("AndroidT","Aqui 5");
+
                 try {
                     ponto.setIdCliente(idCL);
                     ponto.setIdEmpresa(idEP);
                     ponto.setPontosRegatar(1);
 
                     Map<Integer, Ponto> p = cliente.getPonto();
+                    Ponto p2 = p.get(idCL);
 
-                    ponto.setPontosTotal(+pontosResgatar);
-                    ponto.setPontosParaValidar(ponto.getPontosParaValidar()+pontosResgatar);
+                    if(p2 != null) {
+                        ponto.setPontosTotal(p2.getPontosTotal() +pontosResgatar);
+                        ponto.setPontosParaValidar(p2.getPontosParaValidar()+pontosResgatar);
+                    } else {
+                        ponto.setPontosTotal(pontosResgatar);
+                        ponto.setPontosParaValidar(pontosResgatar);
+                    }
+
 
                     mapPonto.put(idEP, ponto);
                     //map.put(key, map.get(key) + 1);

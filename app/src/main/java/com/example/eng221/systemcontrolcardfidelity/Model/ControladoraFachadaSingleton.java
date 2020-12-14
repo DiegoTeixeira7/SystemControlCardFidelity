@@ -54,24 +54,31 @@ public class ControladoraFachadaSingleton {
     }
 
     private Map<Integer, Ponto> buscaPontos(int idCliente) {
-
+        Log.i("AndroidT", "Aqui 1");
         try {
+            Log.i("AndroidT", "Aqui 2");
             Cursor c = BancoDadosSingleton.getInstance().buscar("pontos",new String[]{"idEmpresa","pontosTotal","pontosResgatar"},"idCliente='"+idCliente+"'","");
             //Cursor c = BancoDadosSingleton.getInstance().buscar("pontos",new String[]{"pontosTotal","pontosRegatar"},"idEmpresa='"+idEmpresa+"' AND idCliente='"+idCliente+"'","");
-
+            Log.i("AndroidT", "Aqui 3");
             Ponto p = null;
             Map<Integer, Ponto> map = new HashMap<Integer, Ponto>();
+
+            String aux = "";
 
             while(c.moveToNext()){
                 int pontosTotal = c.getColumnIndex("pontosTotal");
                 int idEmpresa = c.getColumnIndex("idEmpresa");
                 int pontosResgatar = c.getColumnIndex("pontosResgatar");
 
+                aux += "idCliente: " + idCliente + "/n";
+
                 p = new Ponto(idCliente, c.getInt(pontosTotal), c.getInt(pontosResgatar));
                 map.put(c.getInt(idEmpresa),p);
 
             }
+            Log.i("AndroidT",aux);
             c.close();
+            Log.i("AndroidT", "Aqui 4");
 
             return map;
 
