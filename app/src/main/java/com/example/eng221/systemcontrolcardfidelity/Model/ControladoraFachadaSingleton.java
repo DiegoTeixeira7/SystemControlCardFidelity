@@ -1,14 +1,20 @@
 package com.example.eng221.systemcontrolcardfidelity.Model;
 
 import android.database.Cursor;
+import android.util.Log;
 
 import com.example.eng221.systemcontrolcardfidelity.Util.BancoDadosSingleton;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ControladoraFachadaSingleton {
     private Cliente cliente;
     private Empresa empresa;
     private static ControladoraFachadaSingleton INSTANCECLIENTE = new ControladoraFachadaSingleton();
     private static ControladoraFachadaSingleton INSTANCEMPRESA;
+
+    public Map<Integer, Ponto> map = null;
 
     private ControladoraFachadaSingleton() {
         daoCliente();
@@ -38,7 +44,42 @@ public class ControladoraFachadaSingleton {
             cliente.setTemSessao(c.getInt(temSessao));
         }
 
+        map = buscaPontos(cliente.getIdCliente());
+
+        if(map != null && map.size() != 0) {
+            cliente.setPonto(map);
+        }
+
         c.close();
+    }
+
+    private Map<Integer, Ponto> buscaPontos(int idCliente) {
+
+        try {
+            Cursor c = BancoDadosSingleton.getInstance().buscar("pontos",new String[]{"idEmpresa","pontosTotal","pontosResgatar"},"idCliente='"+idCliente+"'","");
+            //Cursor c = BancoDadosSingleton.getInstance().buscar("pontos",new String[]{"pontosTotal","pontosRegatar"},"idEmpresa='"+idEmpresa+"' AND idCliente='"+idCliente+"'","");
+
+            Ponto p = null;
+            Map<Integer, Ponto> map = new HashMap<Integer, Ponto>();
+
+            while(c.moveToNext()){
+                int pontosTotal = c.getColumnIndex("pontosTotal");
+                int idEmpresa = c.getColumnIndex("idEmpresa");
+                int pontosResgatar = c.getColumnIndex("pontosResgatar");
+
+                p = new Ponto(idCliente, c.getInt(pontosTotal), c.getInt(pontosResgatar));
+                map.put(c.getInt(idEmpresa),p);
+
+            }
+            c.close();
+
+            return map;
+
+        } catch (Exception e) {
+            Log.i("AndroidT","Erro");
+        }
+
+        return map;
     }
 
     private void daoEmpresa(int idEmpresa) {

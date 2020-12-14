@@ -12,6 +12,12 @@ public class Ponto {
         this.idCliente = idCliente;
     }
 
+    public Ponto(int idCliente, int pontosTotal, int pontosRegatar) {
+        this.idCliente = idCliente;
+        this.pontosTotal = pontosTotal;
+        this.pontosRegatar = pontosRegatar;
+    }
+
     public int getPontosParaValidar() {
         return pontosParaValidar;
     }

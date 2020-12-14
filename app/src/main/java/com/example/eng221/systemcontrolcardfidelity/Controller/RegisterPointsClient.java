@@ -171,8 +171,10 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
                 //map.put(key, map.get(key) + 1);
                 cliente.setPonto(mapPonto);
 
-                // TODO salvar no BD o cliente atualizado
-                // TODO excluir ponto validado so select
+                cliente.resgatarPontos(idEP,ponto.getPontosTotal(),ponto.getPontosParaValidar());
+                cliente.excluiResgate(idPR);
+
+                recreate();
 
                 // Desenha qrcode
                 qrCodeImage.setImageBitmap(qrCode.getBitmap());

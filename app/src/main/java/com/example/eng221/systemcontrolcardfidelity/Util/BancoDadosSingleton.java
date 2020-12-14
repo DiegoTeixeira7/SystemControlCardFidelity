@@ -120,7 +120,7 @@ public final class BancoDadosSingleton {
                     "  idEmpresa INTEGER," +
                     "  idCliente INTEGER," +
                     "  pontosTotal INTEGER  DEFAULT 0 NOT NULL," +
-                    "  pontosRegatar INTEGER  DEFAULT 0 NOT NULL," +
+                    "  pontosResgatar INTEGER  DEFAULT 0 NOT NULL," +
                     "  CONSTRAINT fk_pontos_empresa FOREIGN KEY (idEmpresa) REFERENCES empresa (idEmpresa)," +
                     "  CONSTRAINT fk_pontos_cliente FOREIGN KEY (idCliente) REFERENCES cliente (idCliente)" +
                     ");"

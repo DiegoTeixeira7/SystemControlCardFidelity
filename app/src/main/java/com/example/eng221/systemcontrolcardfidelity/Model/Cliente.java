@@ -81,6 +81,21 @@ public class Cliente {
         BancoDadosSingleton.getInstance().inserir("solicitacoesPontos", valores);
     }
 
+    public void resgatarPontos(Integer idEmpresa, int pontosTotal, int pontosRegatar) {
+        ContentValues valores = new ContentValues();
+        assert idEmpresa != null;
+        valores.put("idEmpresa", idEmpresa.toString());
+        valores.put("idCliente", getIdCliente());
+        valores.put("pontosTotal", pontosTotal);
+        valores.put("pontosResgatar", pontosRegatar);
+
+        BancoDadosSingleton.getInstance().inserir("pontos", valores);
+    }
+
+    public void excluiResgate(int idPontosResgatar) {
+        BancoDadosSingleton.getInstance().deletar("pontosResgatar", "idPontosResgatar='"+idPontosResgatar+"'");
+    }
+
     public String exibirSolicitacoes(){
         Cursor c = BancoDadosSingleton.getInstance().buscar("solicitacoesPontos",new String[]{"idCliente","idEmpresa","reais"},"","");
 
