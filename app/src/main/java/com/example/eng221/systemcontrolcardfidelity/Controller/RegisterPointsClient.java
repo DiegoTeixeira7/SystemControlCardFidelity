@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.eng221.systemcontrolcardfidelity.Model.QRCode;
 import com.example.eng221.systemcontrolcardfidelity.Model.Cliente;
 import com.example.eng221.systemcontrolcardfidelity.Model.ControladoraFachadaSingleton;
 import com.example.eng221.systemcontrolcardfidelity.Model.Ponto;
@@ -37,6 +38,8 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
     public String codedigoAlfanumerico;
     public String codigoQRCode;
 
+    QRCode qrCode;
+
     public ArrayList<String> pontosValidacao = new ArrayList<>();
     public Map<Integer, Integer> map = new HashMap<Integer, Integer>();
     public ArrayAdapter<String> adapter;
@@ -49,6 +52,9 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_points_client);
+
+        // Inicializa Qrcode
+        qrCode = new QRCode();
 
         Spinner s = findViewById(R.id.spinnerPoints);
         s.setOnItemSelectedListener(this); //configura método de seleção
@@ -198,4 +204,23 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
             Toast.makeText(this, "Problema ao setar variáveis", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private String geraCodeAlfa() {
+        String[] caracteres ={  "0","1","2","3","4","5","6","7","8","9",
+                "a","b","c","d","e","f","g","h","i","j",
+                "k","l","m","n","o","p","q","r","s","t",
+                "u","v","w","x","y","z","A","B","C","D",
+                "E","F","G","H","I","J","K","L","M","N",
+                "O","P","Q","R","S","T","U","V","W","X",
+                "Y","Z"};
+
+        String codigo="";
+        for (int x=0; x<40; x++){
+            int c = (int) (Math.random()*caracteres.length);
+            codigo += caracteres[c];
+        }
+
+        return codigo;
+    }
+
 }
