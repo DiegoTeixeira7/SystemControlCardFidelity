@@ -76,7 +76,7 @@ public class ControladoraFachadaSingleton {
             return map;
 
         } catch (Exception e) {
-            Log.i("AndroidT","Erro");
+            Log.i("AndroidT","Map vazio");
         }
 
         return map;

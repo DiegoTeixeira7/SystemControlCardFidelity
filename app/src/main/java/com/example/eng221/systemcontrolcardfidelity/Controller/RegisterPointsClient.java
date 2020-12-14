@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,8 +41,8 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
     public int pontosResgatar;
     public double reaisC;
     public String nomeEP;
-    public String codigoAlfanumerico;
-    public String codigoQRCode;
+    public String codigoAlfanumerico = "";
+    public String codigoQRCode = "";
 
     QRCode qrCode;
 
@@ -115,6 +116,16 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
         TextView alfa = findViewById(R.id.codeAlpha);
         alfa.setText(codigoAlfanumerico);
 
+        // Informacoes de qrcode da tela
+        ImageView qrCodeImage = (ImageView) findViewById(R.id.imageQRCode);
+        TextView codeNumberDescription = (TextView) findViewById(R.id.codeAlphaText);
+        //TextView codeNumber = (TextView) findViewById(R.id.codeAlpha);
+
+        // Desenha qrcode
+        qrCodeImage.setImageBitmap(qrCode.getBitmap());
+        codeNumberDescription.setText("Código alfanumérico:");
+        //codeNumber.setText(codigoAlfanumerico);
+
         Toast.makeText(this, "Item: " + pontosValidacao.get(posicao) + " id: " + idPontosR.toString() , Toast.LENGTH_SHORT).show();
     }
 
@@ -149,39 +160,49 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
 
     public void generatePoints(View view) throws WriterException, ChecksumException, NotFoundException, FormatException {
         String tag = view.getTag().toString();
+        Log.i("AndroidT","Aqui 1");
+        if(!codigoQRCode.equals("")) {
+            // Gera QrCode
+            Log.i("AndroidT","Aqui 2");
+            qrCode.generateQrCode(codigoQRCode);
+        }
+        Log.i("AndroidT","Aqui 3");
 
-        // Gera QrCode
-        qrCode.generateQrCode(codigoQRCode);
 
-        // Informacoes de qrcode da tela
-        ImageView qrCodeImage = (ImageView) findViewById(R.id.imageQRCode);
-        TextView codeNumberDescription = (TextView) findViewById(R.id.codeAlphaText);
-        TextView codeNumber = (TextView) findViewById(R.id.codeAlpha);
+
+        Log.i("AndroidT","Aqui 4");
 
         if (tag.equals("alfanumerico")) {
             if(codeResgatado == 0) {
+                Log.i("AndroidT","Aqui 5");
+                try {
+                    ponto.setIdCliente(idCL);
+                    ponto.setIdEmpresa(idEP);
+                    ponto.setPontosRegatar(1);
+                    ponto.setPontosTotal(ponto.getPontosTotal()+pontosResgatar);
+                    ponto.setPontosParaValidar(ponto.getPontosParaValidar()+pontosResgatar);
 
-                ponto.setIdCliente(idCL);
-                ponto.setIdEmpresa(idEP);
-                ponto.setPontosRegatar(1);
-                ponto.setPontosTotal(ponto.getPontosTotal()+pontosResgatar);
-                ponto.setPontosParaValidar(ponto.getPontosParaValidar()+pontosResgatar);
+                    mapPonto.put(idEP, ponto);
+                    //map.put(key, map.get(key) + 1);
+                    cliente.setPonto(mapPonto);
 
-                mapPonto.put(idEP, ponto);
-                //map.put(key, map.get(key) + 1);
-                cliente.setPonto(mapPonto);
 
-                cliente.resgatarPontos(idEP,ponto.getPontosTotal(),ponto.getPontosParaValidar());
-                cliente.excluiResgate(idPR);
+                    if(!codigoAlfanumerico.equals("")) {
 
-                recreate();
 
-                // Desenha qrcode
-                qrCodeImage.setImageBitmap(qrCode.getBitmap());
-                codeNumberDescription.setText("Código alfanumérico:");
-                codeNumber.setText(codigoAlfanumerico);
+                        cliente.resgatarPontos(idEP,ponto.getPontosTotal(),ponto.getPontosParaValidar());
+                        cliente.excluiResgate(idPR);
 
-                Toast.makeText(this, "Ponto resgatado na empresa +"+nomeEP+". Voce ganhou "+pontosResgatar+" pontos." + "Voce tem  "+ponto.getPontosParaValidar()+ "para resgatar. Voce tem "+ponto.getPontosTotal()+ " no total!", Toast.LENGTH_SHORT).show();
+                        recreate();
+
+                        Toast.makeText(this, "Ponto resgatado na empresa +"+nomeEP+". Voce ganhou "+pontosResgatar+" pontos." + "Voce tem  "+ponto.getPontosParaValidar()+ "para resgatar. Voce tem "+ponto.getPontosTotal()+ " no total!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    Toast.makeText(this, "Nenhum ponto para validar", Toast.LENGTH_SHORT).show();
+
+                } catch (Exception e) {
+                    Toast.makeText(this, "Nenhum código para validar", Toast.LENGTH_SHORT).show();
+                }
 
             } else {
                 Toast.makeText(this, "Código já validado", Toast.LENGTH_SHORT).show();
@@ -190,10 +211,7 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
             if(codeResgatado == 0) {
                 if(codigoAlfanumerico == qrCode.getCode()){
 
-                    //Desenha Qrcode
-                    qrCodeImage.setImageBitmap(qrCode.getBitmap());
-                    codeNumberDescription.setText("Código alfanumérico:");
-                    codeNumber.setText(codigoAlfanumerico);
+
 
                 } else {
                     Toast.makeText(this, "QR Code invalido", Toast.LENGTH_SHORT).show();
