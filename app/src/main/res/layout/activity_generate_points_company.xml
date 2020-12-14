@@ -102,15 +102,15 @@
 
             <EditText
                 android:id="@+id/price"
-                android:layout_height="48dp"
                 android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
-                android:shadowColor="#000"
-                android:elevation="10dp"
-                android:background="@drawable/text_box_background"
-                android:theme="@style/EditText"
+                android:layout_height="48dp"
                 android:layout_marginHorizontal="48dp"
-                android:inputType="numberDecimal"/>
+                android:layout_marginTop="10dp"
+                android:background="@drawable/text_box_background"
+                android:elevation="10dp"
+                android:inputType="numberDecimal"
+                android:shadowColor="#000"
+                android:theme="@style/EditText" />
 
             <Button
                 android:id="@+id/btnGenerateCodes"
@@ -134,7 +134,7 @@
                 android:theme="@style/subTitle"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:text="Código alfanumérico:" />
+                android:text="" />
 
             <TextView
                 android:id="@+id/codeAlpha"
@@ -145,15 +145,24 @@
                 android:textColor="#fff"
                 android:shadowRadius="4"
                 android:shadowColor="#000"
-                android:text="(01)05391234567892 (15)051231 (10)APO1536Z (00)353912345678910118" />
+                android:text="" />
 
-
-            <ImageView
-                android:id="@+id/imageQRCode"
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                app:srcCompat="@drawable/qrcode" />
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:id="@+id/imageQRCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="100dp"
+                    android:maxWidth="100dp"
+                    android:layout_margin="10dp"
+                    android:adjustViewBounds="true"
+                    app:srcCompat="@android:color/transparent"/>
+
+            </RelativeLayout>
 
             <Button
                 android:id="@+id/btnValidadeQRCoe"

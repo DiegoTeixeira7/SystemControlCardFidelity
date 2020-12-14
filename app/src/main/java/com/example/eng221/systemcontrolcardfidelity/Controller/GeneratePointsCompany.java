@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.location.LocationListener;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,14 +13,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.eng221.systemcontrolcardfidelity.Model.ControladoraFachadaSingleton;
+import com.example.eng221.systemcontrolcardfidelity.Model.QRCode;
 import com.example.eng221.systemcontrolcardfidelity.R;
 import com.example.eng221.systemcontrolcardfidelity.Util.BancoDadosSingleton;
+import com.google.zxing.ChecksumException;
+import com.google.zxing.FormatException;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.WriterException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,6 +48,8 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
     public String codeAlfanumerico = "";
     public String caminhoQRCodeGerado = "";
 
+    QRCode qrCode;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +63,9 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
 
     protected void onStart() {
         super.onStart();
+
+        //Inicializa QR CODE
+        qrCode = new QRCode();
 
         adapter.setNotifyOnChange(false);
 
@@ -114,7 +127,7 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
 
     public void onNothingSelected(AdapterView arg0) { }
 
-    public void codes(View view) {
+    public void codes(View view) throws WriterException, ChecksumException, NotFoundException, FormatException {
         //Toast.makeText(this,  ControladoraFachadaSingleton.getInstance(1).getEmpresa().exibirEmpresa(), Toast.LENGTH_LONG).show();
 
         buscaSolicitacoes();
@@ -138,12 +151,24 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
                     Toast.makeText(this, "Método de conversão de pontos não identificado", Toast.LENGTH_LONG).show();
                 } else {
                     String tag = view.getTag().toString();
+
+                    // Descricao do alfanumerico
+                    TextView alfa_description = findViewById(R.id.codeAlphaText);
+
                     TextView alfa = findViewById(R.id.codeAlpha);
+                    ImageView qrCodeImage = (ImageView) findViewById(R.id.imageQRCode);
 
                     if (tag.equals("generateCodes")) {
+
+                        // Escreve Descricao
+                        alfa_description.setText("Código alfanumérico:");
+
                         codeAlfanumerico = geraCodeAlfa();
                         alfa.setText(codeAlfanumerico);
+
                         caminhoQRCodeGerado = geraQRCode(codeAlfanumerico);
+                        qrCodeImage.setImageBitmap(qrCode.getBitmap());
+
                     } else if (tag.equals("sendCodes")) {
                         int pontosResgatar = geraPontos(metodoIdE, pontosE, reaisE, Price);
 
@@ -219,8 +244,10 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
         return codigo;
     }
 
-    private String geraQRCode(String alfaNumerico) {
-        return alfaNumerico + "string_com_o_caminho";
+    private String geraQRCode(String alfaNumerico) throws WriterException, FormatException, ChecksumException, NotFoundException {
+        qrCode.generateQrCode(alfaNumerico);
+
+        return qrCode.getCode();
     }
 
     private void saveBD(String codeAlfa, String qrCode, int pontoGanhar) {

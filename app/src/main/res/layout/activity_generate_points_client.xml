@@ -59,6 +59,7 @@
 
                 <EditText
                     android:id="@+id/price"
+                    android:inputType="numberDecimal"
                     android:layout_height="48dp"
                     android:layout_width="match_parent"
                     android:shadowColor="#000"
