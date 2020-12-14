@@ -5,9 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.eng221.systemcontrolcardfidelity.Model.QRCode;
 import com.example.eng221.systemcontrolcardfidelity.R;
 import com.example.eng221.systemcontrolcardfidelity.Util.BancoDadosSingleton;
+import com.google.zxing.ChecksumException;
+import com.google.zxing.FormatException;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.WriterException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
     }
 
     public void choiceActivity(View view) {
@@ -23,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         if (tag.equals("cliente")) {
             Intent it = new Intent(getBaseContext(), GeneratePointsClient.class);
             startActivity(it);
+
         } else if (tag.equals("empresa")) {
             Intent it = new Intent(getBaseContext(), GeneratePointsCompany.class);
             startActivity(it);
