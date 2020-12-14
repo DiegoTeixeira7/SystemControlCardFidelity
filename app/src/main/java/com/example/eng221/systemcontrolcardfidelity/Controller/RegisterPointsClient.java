@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.eng221.systemcontrolcardfidelity.R;
@@ -24,6 +25,14 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
     public static final int VOLTAR = 1;
     public static final int GENERATEPOINTS = 2;
     public int idPR;
+    public int idEP;
+    public int idCL;
+    public int codeResgatado;
+    public int pontosResgatar;
+    public double reaisC;
+    public String nomeEP;
+    public String codedigoAlfanumerico;
+    public String codigoQRCode;
 
     public ArrayList<String> pontosValidacao = new ArrayList<>();
     public Map<Integer, Integer> map = new HashMap<Integer, Integer>();
@@ -47,10 +56,9 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
         adapter.setNotifyOnChange(false);
 
         try {
-            Cursor c = BancoDadosSingleton.getInstance().buscar("pontosResgatar", new String[]{"idPontosResgatar", "idEmpresa", "nomeE", "idCliente", "reais", "pontosGanhar", "codeAlfa", "qrCode", "resgatado"}, "", "");
+            Cursor c = BancoDadosSingleton.getInstance().buscar("pontosResgatar", new String[]{"idPontosResgatar", "idEmpresa", "nomeE", "idCliente", "reais", "pontosGanhar", "codeAlfa", "qrCode", "resgatado"}, "", "nomeE, reais");
 
             int i = 0;
-            String t = "";
 
             while(c.moveToNext()){
                 int idPontosResgatar = c.getColumnIndex("idPontosResgatar");
@@ -62,14 +70,11 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
                 int codeAlpfa = c.getColumnIndex("codeAlfa");
                 int qrCode = c.getColumnIndex("qrCode");
                 int resgatado = c.getColumnIndex("resgatado");
-                t = c.getString(nomeE);
 
                 pontosValidacao.add(c.getString(nomeE) + " - R$ " + c.getDouble(reais));
                 map.put(i, c.getInt(idPontosResgatar));
                 i++;
             }
-
-            Toast.makeText(this, "nomeE: "+t, Toast.LENGTH_SHORT).show();
 
             // Habilitar novamente a notificacao
             adapter.setNotifyOnChange(true);
@@ -87,6 +92,12 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
         if (idPontosR != null) {
             idPR = Integer.parseInt(idPontosR.toString());
         }
+
+        setVariaveis(idPR);
+
+        TextView alfa = findViewById(R.id.codeAlpha);
+        alfa.setText(codedigoAlfanumerico);
+
         Toast.makeText(this, "Item: " + pontosValidacao.get(posicao) + " id: " + idPontosR.toString() , Toast.LENGTH_SHORT).show();
     }
 
@@ -120,5 +131,42 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
     }
 
     public void generatePoints(View view) {
+        String tag = view.getTag().toString();
+
+        if (tag.equals("alfanumerico")) {
+
+        } else if (tag.equals("qrcode")) {
+
+        }
+    }
+
+    public void setVariaveis(int idPR) {
+        try {
+            Cursor c = BancoDadosSingleton.getInstance().buscar("pontosResgatar", new String[]{"idEmpresa", "nomeE", "idCliente", "reais", "pontosGanhar", "codeAlfa", "qrCode", "resgatado"}, "idPontosResgatar='"+idPR+"'", "");
+
+            while(c.moveToNext()){
+                int idEmpresa = c.getColumnIndex("idEmpresa");
+                int idCliente = c.getColumnIndex("idCliente");
+                int nomeE = c.getColumnIndex("nomeE");
+                int reais = c.getColumnIndex("reais");
+                int pontosGanhar = c.getColumnIndex("pontosGanhar");
+                int codeAlpfa = c.getColumnIndex("codeAlfa");
+                int qrCode = c.getColumnIndex("qrCode");
+                int resgatado = c.getColumnIndex("resgatado");
+
+                idEP = c.getInt(idEmpresa);
+                idCL = c.getInt(idCliente);
+                nomeEP = c.getString(nomeE);
+                codeResgatado = c.getInt(resgatado);
+                pontosResgatar = c.getInt(pontosGanhar);
+                reaisC = c.getInt(reais);
+                codedigoAlfanumerico = c.getString(codeAlpfa);
+                codigoQRCode = c.getString(qrCode);
+            }
+
+            c.close();
+        } catch (Exception e) {
+            Toast.makeText(this, "Problema ao setar variáveis", Toast.LENGTH_SHORT).show();
+        }
     }
 }
