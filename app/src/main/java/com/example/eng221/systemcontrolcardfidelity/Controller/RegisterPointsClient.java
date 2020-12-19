@@ -1,6 +1,7 @@
 package com.example.eng221.systemcontrolcardfidelity.Controller;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -58,6 +59,9 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_points_client);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar4);
+        setSupportActionBar(myToolbar);
 
         // Inicializa Qrcode
         qrCode = new QRCode();
@@ -144,6 +148,7 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
+        setTitle("");
 
         MenuItem item = menu.add(0, VOLTAR, 1, "Voltar");
         menu.add(0, GENERATEPOINTS, 0, "Gerar Pontos");

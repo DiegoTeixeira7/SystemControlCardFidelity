@@ -6,6 +6,29 @@
     android:layout_height="match_parent"
     android:background="@color/colorBlueTheme">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/blue_toolbar"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cadastrar Pontos"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:layout_marginRight="10sp"
+            android:layout_marginLeft="10sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:id="@+id/toolbar_title"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
@@ -48,6 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:orientation="vertical"
+            android:layout_marginTop="55dp"
             android:background="@drawable/yellow_toolbar"
             android:elevation="20dp"
             android:outlineAmbientShadowColor="#000">

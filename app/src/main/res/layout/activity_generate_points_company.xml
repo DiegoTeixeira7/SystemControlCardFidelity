@@ -7,7 +7,7 @@
     android:background="@drawable/blue_toolbar">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/my_toolbar2"
+        android:id="@+id/my_toolbar4"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:background="@drawable/blue_toolbar"

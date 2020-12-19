@@ -39,7 +39,7 @@ public class GeneratePointsClient extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_points_client);
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar2);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar3);
         setSupportActionBar(myToolbar);
 
         //Cria um ArrayAdapter para exibir os estados
