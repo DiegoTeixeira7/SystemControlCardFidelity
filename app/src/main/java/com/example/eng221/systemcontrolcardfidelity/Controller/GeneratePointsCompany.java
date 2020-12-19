@@ -2,19 +2,14 @@ package com.example.eng221.systemcontrolcardfidelity.Controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.location.LocationListener;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -56,7 +51,7 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_points_company);
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar2);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar4);
         setSupportActionBar(myToolbar);
 
         Spinner s = findViewById(R.id.spinnerClientes);

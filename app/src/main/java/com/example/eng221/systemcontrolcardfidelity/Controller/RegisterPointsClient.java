@@ -60,7 +60,7 @@ public class RegisterPointsClient extends AppCompatActivity implements AdapterVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_points_client);
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar4);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar2);
         setSupportActionBar(myToolbar);
 
         // Inicializa Qrcode
