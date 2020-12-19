@@ -1,6 +1,7 @@
 package com.example.eng221.systemcontrolcardfidelity.Controller;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -55,6 +56,9 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_points_company);
 
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar2);
+        setSupportActionBar(myToolbar);
+
         Spinner s = findViewById(R.id.spinnerClientes);
         s.setOnItemSelectedListener(this); //configura método de seleção
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, clientes);
@@ -99,6 +103,7 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
+        setTitle("");
 
         MenuItem item = menu.add(0, VOLTAR, 1, "Voltar");
 
