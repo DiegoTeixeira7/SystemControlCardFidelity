@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+ext {
+    supportVersion='30.0.2'
+}
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
@@ -24,6 +28,7 @@ android {
 // dependencias
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'com.google.android.exoplayer:exoplayer:r2.0.4'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation files('libs\\zxing-1.7-javase.jar')
@@ -32,5 +37,4 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-
 }

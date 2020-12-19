@@ -1,13 +1,12 @@
 package com.example.eng221.systemcontrolcardfidelity.Controller;
 
-import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
+
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.eng221.systemcontrolcardfidelity.Model.QRCode;
 import com.example.eng221.systemcontrolcardfidelity.R;
@@ -24,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+        
     }
 
     // escolhe a tela de cliente ou empresa
