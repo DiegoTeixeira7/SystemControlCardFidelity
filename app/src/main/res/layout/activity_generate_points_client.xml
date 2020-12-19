@@ -6,34 +6,29 @@
     android:layout_height="match_parent"
     android:background="@color/colorBlueTheme">
 
-
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="85dp"
+        android:background="@drawable/yellow_toolbar"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:orientation="horizontal"
-            android:background="@drawable/yellow_toolbar">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Solicitar Código de Pontos"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:layout_marginRight="10sp"
+            android:layout_marginLeft="10sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:id="@+id/toolbar_title"/>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    </androidx.appcompat.widget.Toolbar>
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:theme="@style/Title"
-                    android:layout_weight="1"
-                    android:textColor="#666666"
-                    android:text="Solicitar Código de Pontos" />
-
-            </RelativeLayout>
-        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -42,6 +37,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical"
                 android:layout_centerVertical="true">
 
@@ -87,8 +83,6 @@
             </LinearLayout>
 
         </RelativeLayout>
-
-    </LinearLayout>
 
 
 </RelativeLayout>

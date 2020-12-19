@@ -1,6 +1,7 @@
 package com.example.eng221.systemcontrolcardfidelity.Controller;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -38,6 +39,9 @@ public class GeneratePointsClient extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_points_client);
 
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar2);
+        setSupportActionBar(myToolbar);
+
         //Cria um ArrayAdapter para exibir os estados
         ArrayAdapter<String> adaptador =
                 new ArrayAdapter<String>(this,android.R.layout.select_dialog_item, empresas);
@@ -62,6 +66,7 @@ public class GeneratePointsClient extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
+        setTitle("");
 
         MenuItem item = menu.add(0, VOLTAR, 1, "Voltar");
         menu.add(0, REGISTERPOINTS, 0, "Registrar Pontos");
