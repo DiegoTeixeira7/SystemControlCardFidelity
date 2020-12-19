@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.example.eng221.systemcontrolcardfidelity.Model.QRCode;
 import com.example.eng221.systemcontrolcardfidelity.R;
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
+        getWindow().setStatusBarColor(Color.parseColor("#5383E8"));
     }
 
     // escolhe a tela de cliente ou empresa

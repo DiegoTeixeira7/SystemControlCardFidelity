@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -41,6 +42,8 @@ public class GeneratePointsClient extends AppCompatActivity {
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar3);
         setSupportActionBar(myToolbar);
+
+        getWindow().setStatusBarColor(Color.parseColor("#5383E8"));
 
         //Cria um ArrayAdapter para exibir os estados
         ArrayAdapter<String> adaptador =

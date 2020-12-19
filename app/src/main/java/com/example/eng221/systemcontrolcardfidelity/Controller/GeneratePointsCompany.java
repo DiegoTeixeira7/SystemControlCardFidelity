@@ -3,6 +3,7 @@ package com.example.eng221.systemcontrolcardfidelity.Controller;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -53,6 +54,8 @@ public class GeneratePointsCompany extends AppCompatActivity implements AdapterV
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar4);
         setSupportActionBar(myToolbar);
+
+        getWindow().setStatusBarColor(Color.parseColor("#5383E8"));
 
         Spinner s = findViewById(R.id.spinnerClientes);
         s.setOnItemSelectedListener(this); //configura método de seleção
