@@ -9,11 +9,23 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:layout_height="100dp"
+        android:background="#FEE94E"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sistema de Controle de Cartão de Fidelidade"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:layout_marginRight="10sp"
+            android:layout_marginLeft="10sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:id="@+id/toolbar_title"/>
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -25,7 +37,7 @@
 
         <ImageView
             android:id="@+id/imageViewLogo"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="85dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
