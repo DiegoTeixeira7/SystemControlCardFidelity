@@ -17,9 +17,9 @@ Este projeto foi desenvolvido com as seguintes tecnologias:
 ### :arrow_forward: Em Execução:
 
 <p align="center">
- <img alt="Demontração Sistema de controle de Fidelidade" src="assets/registrarPontos_Cliente_F.gif">
- <img alt="Demontração Sistema de controle de Fidelidade" src="assets/registrarPontos_Empresa_F.gif">
- <img alt="Demontração Sistema de controle de Fidelidade" src="assets/resgatrrPontos_Cliente_F.gif">
+ <img alt="Demontração Sistema de controle de Fidelidade" src="assets/registrarPontos_Cliente_F.gif" width="404px" heigth="720px">
+ <img alt="Demontração Sistema de controle de Fidelidade" src="assets/registrarPontos_Empresa_F.gif" width="404px" heigth="720px">
+ <img alt="Demontração Sistema de controle de Fidelidade" src="assets/resgatarPontos_Clientes_F.gif" width="404px" heigth="720px">
 </p>
 
 ### :information_source: Como usar:
