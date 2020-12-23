@@ -1,4 +1,4 @@
-# :iphone: Sistema de Controle de Fidelidade v1.0
+# :iphone: Sistema de Controle de Cartão de Fidelidade v1.0
 Muitas lojas permitem ao cliente o uso de um cartão fidelidade, podendo acumular pontos, de acordo com o consumo,
 que podem posteriormente ser trocados por recompensas, de acordo com o critério de cada estabelecimento.
 Foi desenvolvido uma parte de um aplicativo que faz isso, para o cliente e para a empresa.
