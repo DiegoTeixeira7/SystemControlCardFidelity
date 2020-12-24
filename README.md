@@ -33,3 +33,7 @@ $ git clone https://github.com/DiegoTeixeira7/SystemControlCardFidelity.git
 # Abra o projeto em seu Android Studio e execute
 
 ```
+
+---
+
+Feito por [Armando](https://github.com/dico422), [Diego](https://github.com/) e [Fábio](https://github.com/fabiomirandafig)
