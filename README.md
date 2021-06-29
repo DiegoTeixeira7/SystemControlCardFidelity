@@ -34,6 +34,9 @@ $ git clone https://github.com/DiegoTeixeira7/SystemControlCardFidelity.git
 
 ```
 
+### :memo: Licença
+Este projeto está sob a licença do MIT. Consulte a [LICENSE](https://github.com/DiegoTeixeira7/SystemControlCardFidelity/blob/master/LICENSE) para obter mais informações.
+
 ---
 
 Feito por [Armando](https://github.com/dico422), [Diego](https://github.com/) e [Fábio](https://github.com/fabiomirandafig)
